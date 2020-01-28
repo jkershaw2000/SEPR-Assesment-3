@@ -198,44 +198,36 @@ public class LevelSelectState extends State{
         if(saveData.getBoolean("3") == true) {
             level3.setOnTexture(new Texture("PressedGreen3.png"));
             level3.setOffTexture(new Texture("NotPressedGreen3.png"));
+            level4.setLocked(false);
 
-// ----------------------------------------------------------------------------------------------------------------- //
-
-// Below is commented out as not needed for Assessment 2 but left in as will be useful for any groups using our game.
-
-// ----------------------------------------------------------------------------------------------------------------- //
-
-//            level4.setLocked(false);
-//
-//            level4.setOnTexture(new Texture("PressedBlue4.png"));
-//            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
+            level4.setOnTexture(new Texture("PressedBlue4.png"));
+            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
         }
-//
-//        if(saveData.getBoolean("4") == true) {
-//            level4.setOnTexture(new Texture("PressedGreen4.png"));
-//            level4.setOffTexture(new Texture("NotPressedGreen4.png"));
-//            level5.setLocked(false);
-//
-//            level5.setOnTexture(new Texture("PressedBlue5.png"));
-//            level5.setOffTexture(new Texture("NotPressedBlue5.png"));
-//        }
-//
-//        if(saveData.getBoolean("5") == true) {
-//            level5.setOnTexture(new Texture("PressedGreen5.png"));
-//            level5.setOffTexture(new Texture("NotPressedGreen5.png"));
-//            level6.setLocked(false);
-//
-//            level6.setOnTexture(new Texture("PressedBlue6.png"));
-//            level6.setOffTexture(new Texture("NotPressedBlue6.png"));
-//        }
-//
-//        if(saveData.getBoolean("6") == true) {
-//            level6.setOnTexture(new Texture("PressedGreen5.png"));
-//            level6.setOffTexture(new Texture("NotPressedGreen5.png"));
-//        }
 
+        if(saveData.getBoolean("4") == true) {
+            level4.setOnTexture(new Texture("PressedGreen4.png"));
+            level4.setOffTexture(new Texture("NotPressedGreen4.png"));
+            level5.setLocked(false);
 
+            level5.setOnTexture(new Texture("PressedBlue5.png"));
+            level5.setOffTexture(new Texture("NotPressedBlue5.png"));
+        }
+
+        if(saveData.getBoolean("5") == true) {
+            level5.setOnTexture(new Texture("PressedGreen5.png"));
+            level5.setOffTexture(new Texture("NotPressedGreen5.png"));
+            level6.setLocked(false);
+
+            level6.setOnTexture(new Texture("PressedBlue6.png"));
+            level6.setOffTexture(new Texture("NotPressedBlue6.png"));
+        }
+
+        if(saveData.getBoolean("6") == true) {
+            level6.setOnTexture(new Texture("PressedGreen5.png"));
+            level6.setOffTexture(new Texture("NotPressedGreen5.png"));
+        }
     }
+
 
     /**
      * Used to draw elements onto the screen.
