@@ -50,6 +50,10 @@ public class PlayState extends State {
     private Fortress fortress;
     private Firetruck firetruck1;
     private Firetruck firetruck2;
+    // Code Added by Dalai Java
+    private Firetruck firetruck3;
+    private Firetruck firetruck4;
+
     private ArrayList<Entity> obstacles = new ArrayList<Entity>();
     public ArrayList<Firetruck> firetrucks = new ArrayList<Firetruck>();
     private ArrayList<Firetruck> destroyedFiretrucks = new ArrayList<Firetruck>();
@@ -95,11 +99,18 @@ public class PlayState extends State {
 
         Vector2 firetruck1pos = null;
         Vector2 firetruck2pos = null;
+        // Code Added by Dalai Java
+        Vector2 firetruck3pos = null;
+        Vector2 firetruck4pos = null;
 
         if (levelNumber == 1) { // Bottom left coordinate of map --> (33, 212) Each grid square = 32px
 
             firetruck1pos = new Vector2(33 + 10 * 32, 212 + 6 * 32);
             firetruck2pos = new Vector2(33 + 11 * 32, 212 + 6 * 32);
+
+            // Code Added by Dalai Java - defining positions of the two additional fire engines
+            firetruck3pos = new Vector2(33 + 10 * 32, 212 + 5 * 32);
+            firetruck4pos = new Vector2(33 + 11 * 32, 212 + 5 * 32);
 
             timeLimit = 90;
             map = new Texture("level1background.png");
@@ -305,6 +316,14 @@ public class PlayState extends State {
                     15000, 2, 3);
         }
 
+        // Code Added by Dalai Java - Implementing the next 3 levels to bring the total fortresses up to 6
+        else if (levelNumber == 4) { }
+
+        else if (levelNumber == 5) { }
+
+        else if (levelNumber == 6) { }
+
+
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
                 new Texture("truck.png"), 100, 200,
                 null, 100, 2,  175,
@@ -315,8 +334,22 @@ public class PlayState extends State {
                 null, 200, 2,  100,
                 false);
 
+        // Code added by Dalai Java - Creates the remaining fire engines and adds to map
+        firetruck3 = new Firetruck(firetruck3pos, 25,25,
+                    new Texture("truck.png"), 75, 200,
+                    null, 150, 5, 75, false);
+
+        firetruck4 = new Firetruck(firetruck4pos, 25,25,
+                new Texture("truck.png"), 250, 250,
+                null, 50, 3, 125, false);
+
         firetrucks.add(firetruck1);
         firetrucks.add(firetruck2);
+
+        // Code added by Dalai Java - Adds firetrucks to arraylist
+        firetrucks.add(firetruck3);
+        firetrucks.add(firetruck4);
+
         timer = new Timer(timeLimit);
 
     }
@@ -391,6 +424,10 @@ public class PlayState extends State {
             truckMovement(firetruck1);
         } else if (firetruck2.isSelected()) {
             truckMovement(firetruck2);
+        } else if (firetruck3.isSelected()){
+            truckMovement(firetruck3);
+        } else if (firetruck4.isSelected()){
+            truckMovement(firetruck4);
         }
 
         // Checks if user presses ENTER when game is over and takes them back to level select.
@@ -595,8 +632,12 @@ public class PlayState extends State {
                 Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 2 Health: " + Integer.toString(firetruck2.getCurrentHealth()), 546,
                 Kroy.HEIGHT - 920);
-        ui.draw(spriteBatch, "Truck 3 Health: N/A", 1023, Kroy.HEIGHT - 920);
-        ui.draw(spriteBatch, "Truck 4 Health: N/A", 1499, Kroy.HEIGHT - 920);
+
+        // Code added by Dalai Java - Shows health of fire trucks
+        ui.draw(spriteBatch, "Truck 3 Health: " + Integer.toString(firetruck3.getCurrentHealth()),  1023,
+                Kroy.HEIGHT - 920);
+        ui.draw(spriteBatch, "Truck 4 Health: " + Integer.toString(firetruck4.getCurrentHealth()), 1499,
+                Kroy.HEIGHT - 920);
 
         // If end game reached, draws level fail or level won images to the screen
         if (levelLost) {
