@@ -179,6 +179,10 @@ public class PlayState extends State {
             firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
             firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
 
+            // PlaceHolders
+            firetruck3pos = new Vector2(33 + 2 * 32, 212 + 6 * 32);
+            firetruck4pos = new Vector2(33 + 2 * 32, 212 + 6 * 32);
+
             timeLimit = 120;
             map = new Texture("level2background.png");
 
@@ -255,6 +259,9 @@ public class PlayState extends State {
 
             firetruck1pos = new Vector2(33 + 27 * 32, 212 + 3 * 32);
             firetruck2pos = new Vector2(33 + 28 * 32, 212 + 3 * 32);
+            // Placeholders
+            firetruck3pos = new Vector2(33 + 27 * 32, 212 + 4 * 32);
+            firetruck4pos = new Vector2(33 + 28 * 32, 212 + 4 * 32);
 
             timeLimit = 60;
 
@@ -317,11 +324,53 @@ public class PlayState extends State {
         }
 
         // Code Added by Dalai Java - Implementing the next 3 levels to bring the total fortresses up to 6
-        else if (levelNumber == 4) { }
+        else if (levelNumber == 4) {
+            firetruck1pos = new Vector2(600,600);
+            firetruck2pos = new Vector2(620,600);
+            firetruck3pos = new Vector2(640, 600);
+            firetruck4pos = new Vector2(660, 600);
 
-        else if (levelNumber == 5) { }
+            // Placeholder values for position
+            fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
+            // Placeholder values for position
+            fortress = new Fortress(new Vector2(), 100, 100, new Texture("grey.png"),
+                    20000, 6, 4);
 
-        else if (levelNumber == 6) { }
+            timeLimit = 45;
+            map = new Texture("level4background.png");
+        }
+
+        else if (levelNumber == 5) {
+            firetruck1pos = new Vector2();
+            firetruck2pos = new Vector2();
+            firetruck3pos = new Vector2();
+            firetruck4pos = new Vector2();
+
+            // Placeholder values for position
+            fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
+            // Placeholder values for position
+            fortress = new Fortress(new Vector2(), 100, 100, new Texture("grey.png"),
+                    20000, 6, 4);
+
+            timeLimit = 45;
+            map = new Texture("level5background.png");
+        }
+
+        else if (levelNumber == 6) {
+            firetruck1pos = new Vector2();
+            firetruck2pos = new Vector2();
+            firetruck3pos = new Vector2();
+            firetruck4pos = new Vector2();
+
+            // Placeholder values for position
+            fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
+            // Placeholder values for position
+            fortress = new Fortress(new Vector2(), 100, 100, new Texture("grey.png"),
+                    20000, 6, 4);
+
+            timeLimit = 45;
+            map = new Texture("level6background.png");
+        }
 
 
         firetruck1 = new Firetruck(firetruck1pos, 25, 25,
