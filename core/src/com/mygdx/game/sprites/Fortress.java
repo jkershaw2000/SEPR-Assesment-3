@@ -47,6 +47,20 @@ public class Fortress extends Unit {
             alienPositions.add(new Vector2(33 + 20 * 32, 212 + 24 * 32));
             alienPositions.add(new Vector2(33 + 34 * 32, 212 + 24 * 32));
         }
+
+        else if (level == 4) {
+            alienPositions.add(new Vector2(33 + 8 * 32, 212 + 10 * 32));
+            alienPositions.add(new Vector2(33 + 7 * 32, 212 + 17 * 32));
+            alienPositions.add(new Vector2(33 + 15 * 32, 212 + 19 * 32));
+            alienPositions.add(new Vector2(33 + 10 * 32, 212 + 15 * 32));
+            alienPositions.add(new Vector2(33 + 13 * 32, 212 + 21 * 32));
+            alienPositions.add(new Vector2(33 + 5 * 32, 212 + 17 * 32));
+            alienPositions.add(new Vector2(33 + 11 * 32, 212 + 24 * 32));
+            alienPositions.add(new Vector2(33 + 16 * 32, 212 + 24 * 32));
+            alienPositions.add(new Vector2(33 + 2 * 32, 212 + 19 * 32));
+
+        }
+
     }
 
     public float getSpawnRate() {
