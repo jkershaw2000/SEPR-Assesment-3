@@ -325,15 +325,20 @@ public class PlayState extends State {
 
         // Code Added by Dalai Java - Implementing the next 3 levels to bring the total fortresses up to 6
         else if (levelNumber == 4) {
-            firetruck1pos = new Vector2(600,600);
-            firetruck2pos = new Vector2(620,600);
-            firetruck3pos = new Vector2(640, 600);
-            firetruck4pos = new Vector2(660, 600);
+            firetruck1pos = new Vector2(33 + (48 * 32), 212 + (23 * 32));
+            firetruck2pos = new Vector2(33 + (49 * 32), 212 + (23 * 32));
+            firetruck3pos = new Vector2(33 + (54 * 32), 212 + (23 * 32));
+            firetruck4pos = new Vector2(33 + (55 * 32), 212 + (23 * 32));
 
-            // Placeholder values for position
-            fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
-            // Placeholder values for position
-            fortress = new Fortress(new Vector2(), 100, 100, new Texture("grey.png"),
+            {
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 19 * 32),284, 160, new Texture("teal.jpg"))); // Fortress Hit Box
+
+
+            }
+
+            fireStation = new Entity(new Vector2((33 + (48 * 32)), (212 + (21 * 32))), 256, 128,  new Texture("teal.jpg"));
+
+            fortress = new Fortress(new Vector2((33 + (4 * 32)),(212 + (19 * 32))), 300, 160, new Texture("grey.png"),
                     20000, 6, 4);
 
             timeLimit = 45;
