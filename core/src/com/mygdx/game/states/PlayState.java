@@ -334,7 +334,7 @@ public class PlayState extends State {
                 obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 19 * 32),284, 160, new Texture("teal.jpg"))); // Fortress Hit Box
 
                 // Obstacle Number refer to numbers on "Level 4 - Obstacle Index.png"
-                obstacles.add(new Entity(new Vector2( 33+ 1 *32, 212 + 13 * 32), 64,64, new Texture("teal.jpg"))); // Obstacle 1
+                obstacles.add(new Entity(new Vector2( 33 + 1 *32, 212 + 13 * 32), 64,64, new Texture("teal.jpg"))); // Obstacle 1
                 obstacles.add(new Entity(new Vector2(33 + 7 * 32, 212 + 0 *32), 64, 64, new Texture("teal.jpg"))); // Obstacle 2
                 obstacles.add(new Entity(new Vector2(33 + 11 * 32, 212 + 5 * 32), 32, 32, new Texture("teal.jpg")));// Obstacle 3
                 obstacles.add(new Entity(new Vector2(33 + 12 * 32, 212 + 5 * 32), 64, 64, new Texture("teal.jpg")));// Obstacle 4
@@ -368,6 +368,34 @@ public class PlayState extends State {
                 obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 19 * 32), 32, 32, new Texture("teal.jpg")));// Obstacle 33
                 obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 2 * 32), 64, 32, new Texture("teal.jpg")));// Obstacle 34
                 obstacles.add(new Entity(new Vector2(33 + 56 * 32, 212 + 1* 32), 32, 32, new Texture("teal.jpg")));// Obstacle 35
+
+                // Lake Collisions
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 13 * 32), 32, 32, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 14 * 32), 160, 32, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 11 * 32), 224, 96, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 6 * 32, 212 + 10 * 32), 224, 32, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 7 * 32, 212 + 9 * 32), 160, 32, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 8 * 32, 212 + 8 * 32), 128, 32, new Texture("teal.jpg")));// Lake 1
+                obstacles.add(new Entity(new Vector2(33 + 10 * 32, 212 + 7 * 32), 32, 32, new Texture("teal.jpg")));// Lake 1
+
+                obstacles.add(new Entity(new Vector2(33 + 16 * 32, 212 + 12 * 32), 160, 96, new Texture("teal.jpg")));// Lake 2
+                obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 11 * 32), 96, 32, new Texture("teal.jpg")));// Lake 2
+
+                // River Collisions
+                // 12 = 52
+                for (int i = 0; i<= 2; i ++){
+                    obstacles.add(new Entity(new Vector2(33  + (42+i)  * 32, 212 + (0+i) * 32), 64, 32, new Texture("teal.jpg")));
+                }
+
+                obstacles.add(new Entity(new Vector2(33 + 45 * 32, 212 + 3 * 32), 64, 32, new Texture("teal.jpg")));
+
+                for (int i = 0; i<= 5; i ++){
+                  obstacles.add(new Entity(new Vector2(33  + (47+i)  * 32, 212 + (4+i) * 32), 64, 32, new Texture("teal.jpg")));
+                }
+
+                for (int i = 0; i<= 4; i ++) {
+                    obstacles.add(new Entity(new Vector2(33 + (54 + i) * 32, 212 + (10 + i) * 32), 32, 32, new Texture("teal.jpg")));
+                }
             }
 
             fireStation = new Entity(new Vector2((33 + (48 * 32)), (212 + (21 * 32))), 256, 128,  new Texture("teal.jpg"));
