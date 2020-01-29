@@ -6,17 +6,20 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 
+import java.util.Arrays;
+
 public class Pipe extends Entity {
     private int rotation;
-    private int correctRotation;
+    private int[] correctRotations;
     private Sprite drawable;
 
-    public Pipe (Vector2 position, int width, int height, Texture texture, int rotation, int correctRotation) {
+    public Pipe (Vector2 position, int width, int height, Texture texture, int rotation, int[] correctRotations) {
         super(position, width, height, texture);
         this.rotation = rotation;
-        this.correctRotation = correctRotation;
+        this.correctRotations = correctRotations;
         this.drawable = new Sprite(texture);
         this.drawable.setPosition(position.x,position.y);
+        this.drawable.setRotation(rotation);
     }
 
     public Boolean inPipeRange() {
@@ -37,7 +40,7 @@ public class Pipe extends Entity {
     }
 
     public boolean isCorrectRotation() {
-        if (rotation == correctRotation) {
+        if (Arrays.asList(correctRotations).contains(rotation)) {
             return true;
         }
         else {
