@@ -81,12 +81,44 @@ public class MinigameState extends State {
         spriteBatch.end();
     }
 
+    /**
+     * Finds a random path from the start to the end, creating a sequence of pipes as it does so
+     * @param pos The current position to be looked at
+     * @param finalPos The destination
+     * @param lastPos The point before the current position to be looked at
+     */
     public void findPath(Vector2 pos, Vector2 finalPos, Vector2 lastPos) {
         if (pos.x == finalPos.x && pos.y == 4) {
-            if (lastPos.x == pos.x - 1) {
-                positions[(int) pos.x][(int) pos.y] = new Pipe(new Vector2(1400, 400 + pos.y), 100,
-                        100, new Texture ("straightPipe.png"),
-                        rotations[(new Random()).nextInt(rotations.length)], new int[] {90, 270});
+            //If we're the pipe away from the end then add the final pipe and end
+            if (pos.x == finalPos.x - 1) {
+                positions[(int) pos.x][(int) pos.y] = choosePipe(lastPos, pos, finalPos);
+            }
+            else {
+                List<Vector2> directions = new ArrayList<Vector2> (Arrays.asList(new Vector2(0,1),
+                        new Vector2(0,-1), new Vector2(1,0), new Vector2(-1,0)));
+                if (pos.x - 1 < 1 || !(positions[(int) pos.x - 1][(int) pos.y] == null)
+                    || (pos.y + 1 > 3 || !(positions[(int) pos.x - 1][(int) pos.y + 1] == null))
+                    && (pos.y - 1 < 0 || !(positions[(int) pos.x - 1][(int) pos.y - 1] == null))) {
+                    directions.remove(new Vector2(-1,0));
+                }
+                if (pos.x + 1 > 4 || !(positions[(int) pos.x + 1][(int) pos.y] == null)
+                    || (pos.y + 1 > 3 || !(positions[(int) pos.x + 1][(int) pos.y + 1] == null))
+                    && (pos.y - 1 < 0 || !(positions[(int) pos.x + 1][(int) pos.y - 1] == null))) {
+                    directions.remove(new Vector2(1,0));
+                }
+                if (pos.y + 1 > 3 || !(positions[(int) pos.x][(int) pos.y + 1] == null)
+                    || (pos.x + 1 > 4 || !(positions[(int) pos.x + 1][(int) pos.y + 1] == null))
+                    && (pos.x - 1 < 1 || !(positions[(int) pos.x - 1][(int) pos.y + 1] == null))) {
+                    directions.remove(new Vector2(0,1));
+                }
+                if (pos.y - 1 < 0 || !(positions[(int) pos.x][(int) pos.y - 1] == null)
+                    || (pos.x + 1 > 4 || !(positions[(int) pos.x + 1][(int) pos.y - 1] == null))
+                    && (pos.x - 1 < 1 || !(positions[(int) pos.x - 1][(int) pos.y - 1] == null))) {
+                    directions.remove(new Vector2(0,-1));
+                }
+                Vector2 nextPos = pos.add(directions.get((new Random()).nextInt(directions.size())));
+                positions[(int) pos.x][(int) pos.y] = choosePipe(lastPos, pos, nextPos);
+                findPath(nextPos, finalPos, pos);
             }
         }
     }
@@ -115,27 +147,68 @@ public class MinigameState extends State {
             }
         }
         //If last pipe was above
-        else if (nextPos.y == currentPos.y - 1) {
-                //Straight pipe down
-                if (nextPos.y == currentPos.y - 1) {
-                    return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
-                            100, new Texture ("StraightPipe.png"),
-                            rotations[(new Random()).nextInt(rotations.length)], new int[] {0, 180});
-                }
-                //Pipe bending down and to the right
-                else if (nextPos.x == currentPos.x + 1) {
-                    return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
-                            100, new Texture ("BendyPipe.png"),
-                            rotations[(new Random()).nextInt(rotations.length)], new int[] {90});
-                }
-                //Pipe bending down and to the left
-                else if (nextPos.x == currentPos.x - 1) {
-                    return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
-                            100, new Texture ("BendyPipe.png"),
-                            rotations[(new Random()).nextInt(rotations.length)], new int[] {180});
+        else if (lastPos.y == currentPos.y + 1) {
+            //Straight pipe down
+            if (nextPos.y == currentPos.y - 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("StraightPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {0, 180});
+            }
+            //Pipe bending down and to the right
+            else if (nextPos.x == currentPos.x + 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {90});
+            }
+            //Pipe bending down and to the left
+            else if (nextPos.x == currentPos.x - 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {180});
                 }
             }
-
+        //If last pipe was below
+        else if (lastPos.y == currentPos.y - 1) {
+            //Straight pipe up
+            if (nextPos.y == currentPos.y + 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("StraightPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {0, 180});
+            }
+            //Pipe bending up and to the right
+            else if (nextPos.x == currentPos.x + 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {0});
+            }
+            //Pipe bending up and to the left
+            else if (nextPos.x == currentPos.x - 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {270});
+            }
+        }
+        //If last pipe was to the right
+        else if (lastPos.x == currentPos.x + 1) {
+            //Straight pipe across
+            if (nextPos.x == currentPos.x- 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("StraightPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {90, 270});
+            }
+            //Pipe bending to the left and up
+            else if (nextPos.y == currentPos.y + 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {90});
+            }
+            //Pipe bending to the left and down
+            else if (nextPos.y == currentPos.y - 1) {
+                return new Pipe(new Vector2(400 + 200 * currentPos.x, 400 + 200 *  currentPos.y), 100,
+                        100, new Texture ("BendyPipe.png"),
+                        rotations[(new Random()).nextInt(rotations.length)], new int[] {0});
+            }
+        }
         return null;
     }
 
