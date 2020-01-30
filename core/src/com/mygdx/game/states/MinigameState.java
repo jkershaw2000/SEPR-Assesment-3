@@ -19,7 +19,6 @@ public class MinigameState extends State {
     Pipe[][] positions;
     Boolean finished;
     int[] rotations = new int[] {0, 90, 180, 270};
-    public int test;
     Texture minigameComplete;
 
     /**
@@ -35,11 +34,22 @@ public class MinigameState extends State {
         positions[0][startPos] = new Pipe(new Vector2(500,400 + startPos * 100), 100, 100, new Texture("StartPipe.png"), 0, new int[] {0});
         int endPos = rand.nextInt(3);
         positions[5][endPos] = new Pipe(new Vector2(1000,400 + endPos * 100), 100, 100, new Texture("StartPipe.png"), 180, new int[] {180});
-        findPath(new Vector2(1, startPos), new Vector2(5, endPos), new Vector2(0, startPos));
+        //If we reach a dead end (unlikely but possible), find another path until one is found
+        Boolean pathFound = false;
+        while (!pathFound) {
+            pathFound = findPath(new Vector2(1, startPos), new Vector2(5, endPos), new Vector2(0, startPos));
+            System.out.println(pathFound);
+            if (!pathFound) {
+                for (int i = 1; i < 5; i++) {
+                    for (int j = 0; j < 4; j++) {
+                        positions[i][j] = null;
+                    }
+                }
+            }
+        }
         giveup = new Button(new Texture("giveup.png"), new Texture ("giveup.png"), 190, 49, new Vector2(750,200),false,false);
         minigameComplete = new Texture("MinigameComplete.png");
         finished = false;
-        test = 0;
     }
 
     @Override
@@ -61,12 +71,6 @@ public class MinigameState extends State {
             for (Pipe pipe : positions[i]) {
                 if (!(pipe == null)) {
                     pipe.getDrawable().draw(spriteBatch);
-                    if (pipe.correctRotations.length == 2) {
-                        System.out.println(i + " " + pipe.rotation + " (" + pipe.correctRotations[0] + " " + pipe.correctRotations[1] + ") " + pipe.isCorrectRotation());
-                    }
-                    else {
-                        System.out.println(i + " " + pipe.rotation + " (" + pipe.correctRotations[0] + ") " + pipe.isCorrectRotation());
-                    }
                 }
             }
         }
@@ -109,14 +113,14 @@ public class MinigameState extends State {
      * @param finalPos The destination
      * @param lastPos The point before the current position to be looked at
      */
-    public void findPath(Vector2 pos, Vector2 finalPos, Vector2 lastPos) {
-        System.out.println(pos.toString());
-        if (pos.y == finalPos.y && pos.x == 4 || test == 100) {
+    public Boolean findPath(Vector2 pos, Vector2 finalPos, Vector2 lastPos) {
+        if (pos.y == finalPos.y && pos.x == 4) {
             //If we're the pipe away from the end then add the final pipe and end
             positions[(int) pos.x][(int) pos.y] = choosePipe(lastPos, pos, finalPos);
+            System.out.println("End reached");
+            return true;
         }
         else {
-            System.out.println(test);
             List<Vector2> directions = new ArrayList<Vector2> (Arrays.asList(new Vector2(0,1),
                     new Vector2(0,-1), new Vector2(1,0), new Vector2(-1,0)));
             //Check if left movement is valid
@@ -146,17 +150,16 @@ public class MinigameState extends State {
                     && (pos.y - 2 < 0 || !(positions[(int) pos.x][(int) pos.y - 2] == null)))) {
                 directions.remove(new Vector2(0,-1));
             }
-            Vector2 nextPos = pos.cpy();
+            //If we reach a dead end, return false
             if (directions.size() == 0) {
-                test = 100;
-                System.out.println("No further moves");
+                return false;
             }
+            //Else find next grid position in path
             else {
+                Vector2 nextPos = pos.cpy();
                 nextPos.add(directions.get((new Random()).nextInt(directions.size())));
                 positions[(int) pos.x][(int) pos.y] = choosePipe(lastPos, pos, nextPos);
-                System.out.println(positions);
-                test++;
-                findPath(nextPos, finalPos, pos);
+                return findPath(nextPos, finalPos, pos);
             }
         }
     }
@@ -247,7 +250,6 @@ public class MinigameState extends State {
                         rotations[(new Random()).nextInt(rotations.length)], new int[] {0});
             }
         }
-        System.out.println("null returned");
         return null;
     }
 
