@@ -516,7 +516,7 @@ public class PlayState extends State {
 
         // Opens pause menu if user hits escape
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            gameStateManager.push(new OptionState(gameStateManager));
+            gameStateManager.push(new MinigameState(gameStateManager));
         }
 
         // Switches active firetruck if the mouse clicks within another selectable firetruck.
