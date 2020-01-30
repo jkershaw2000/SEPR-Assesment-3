@@ -9,8 +9,8 @@ import com.mygdx.game.Kroy;
 import java.util.Arrays;
 
 public class Pipe extends Entity {
-    private int rotation;
-    private int[] correctRotations;
+    public int rotation;
+    public int[] correctRotations;
     private Sprite drawable;
 
     public Pipe (Vector2 position, int width, int height, Texture texture, int rotation, int[] correctRotations) {
@@ -40,12 +40,13 @@ public class Pipe extends Entity {
     }
 
     public boolean isCorrectRotation() {
-        if (Arrays.asList(correctRotations).contains(rotation)) {
-            return true;
+        for (int i = 0; i < correctRotations.length; i++) {
+
+            if (correctRotations[i] == rotation) {
+                return true;
+            }
         }
-        else {
-            return false;
-        }
+        return false;
     }
 
     public Sprite getDrawable() {
