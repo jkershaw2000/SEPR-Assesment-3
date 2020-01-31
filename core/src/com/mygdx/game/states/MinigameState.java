@@ -20,14 +20,16 @@ public class MinigameState extends State {
     Boolean finished;
     int[] rotations = new int[] {0, 90, 180, 270};
     Texture minigameComplete;
+    PlayState playState;
 
     /**
      * Constructor to initialise the minigame
      *
      * @param gameStateManager the class containing the stack of States
      */
-    protected MinigameState(GameStateManager gameStateManager) {
+    protected MinigameState(GameStateManager gameStateManager, PlayState playState) {
         super(gameStateManager);
+        this.playState = playState;
         Random rand = new Random();
         positions = new Pipe[6][4];
         int startPos = rand.nextInt(3);
@@ -97,6 +99,7 @@ public class MinigameState extends State {
         spriteBatch.end();
         if (allCorrect && !finished) {
             finished = true;
+            playState.setMinigameWon(true);
             //Sleeps for one second
             Timer.schedule(new Timer.Task() {
                 @Override

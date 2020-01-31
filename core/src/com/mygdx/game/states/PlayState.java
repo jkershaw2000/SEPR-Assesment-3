@@ -13,6 +13,7 @@ import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.sprites.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -66,6 +67,8 @@ public class PlayState extends State {
     private String level;
 
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
+
+    private Boolean minigameWon = false;
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
@@ -570,7 +573,7 @@ public class PlayState extends State {
         // Opens pause menu if user hits escape
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             //gameStateManager.push(new OptionState(gameStateManager));
-            gameStateManager.push(new MinigameState(gameStateManager));
+            gameStateManager.push(new OptionState(gameStateManager));
 
         }
 
@@ -672,8 +675,10 @@ public class PlayState extends State {
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
-                    gameStateManager.set(new MinigameState(gameStateManager));
+                    minigameWon = false;
+                    gameStateManager.push(new MinigameState(gameStateManager, this));
                     truck.setCurrentWater(truck.getMaxWater());
+                    System.out.println("Minigame won" + minigameWon);
                 }
             }
             else {
@@ -952,5 +957,9 @@ public class PlayState extends State {
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
         }
+    }
+
+    public void setMinigameWon(Boolean won) {
+        this.minigameWon = won;
     }
 }
