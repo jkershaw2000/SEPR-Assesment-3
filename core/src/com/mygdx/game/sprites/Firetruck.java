@@ -15,6 +15,7 @@ public class Firetruck extends Character {
     private int maxWater;
     private int currentWater;
     private boolean selected;
+    private boolean refilling = true;
 
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, int maxWater, boolean selected) {
@@ -92,6 +93,12 @@ public class Firetruck extends Character {
     public boolean isSelected() {
         return selected;
     }
+
+    public boolean isRefilling() {
+        return refilling;
+    }
+
+    public void setRefilling(boolean refilling) { this.refilling = refilling; }
 
     public void setCurrentWater(int currentWater) {
         this.currentWater = currentWater;

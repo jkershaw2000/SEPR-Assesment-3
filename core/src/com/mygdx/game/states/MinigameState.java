@@ -47,6 +47,7 @@ public class MinigameState extends State {
                 }
             }
         }
+        fillScreen();
         giveup = new Button(new Texture("giveup.png"), new Texture ("giveup.png"), 190, 49, new Vector2(750,200),false,false);
         minigameComplete = new Texture("MinigameComplete.png");
         finished = false;
@@ -252,6 +253,24 @@ public class MinigameState extends State {
         }
         return null;
     }
+
+    /**
+     * Fills any square which is not blank with a random pipe
+     * These pipes will be accepted with any rotation so do not affect the game
+     */
+    public void fillScreen() {
+        String[] typesOfPipe = new String[] {"StraightPipe.png", "BendyPipe.png"};
+        for (int i = 1; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (positions[i][j] == null) {
+                    positions[i][j] = new Pipe(new Vector2(500 + 100 * i, 400 + 100 * j), 100,
+                            100, new Texture (typesOfPipe[(new Random()).nextInt(typesOfPipe.length)]),
+                            rotations[(new Random()).nextInt(rotations.length)], new int[] {0, 90, 180, 270});
+                }
+            }
+        }
+    }
+
 
     @Override
     public void dispose() {
