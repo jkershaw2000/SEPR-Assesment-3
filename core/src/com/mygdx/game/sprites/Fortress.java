@@ -58,7 +58,15 @@ public class Fortress extends Unit {
             alienPositions.add(new Vector2(33 + 11 * 32, 212 + 24 * 32));
             alienPositions.add(new Vector2(33 + 16 * 32, 212 + 24 * 32));
             alienPositions.add(new Vector2(33 + 2 * 32, 212 + 19 * 32));
+        }
 
+        else if (level  == 5){
+            alienPositions.add(new Vector2(33 + 55 * 32, 212 + 12 * 32));
+            alienPositions.add(new Vector2(33 + 52 * 32, 212 + 5 * 32));
+            alienPositions.add(new Vector2(33 + 54 * 32, 212 + 6 * 32));
+            alienPositions.add(new Vector2(33 + 53 * 32, 212 + 5 * 32));
+            alienPositions.add(new Vector2(33 + 52 * 32, 212 + 9 * 32));
+            alienPositions.add(new Vector2(33 + 57 * 32, 212 + 6 * 32));
         }
 
     }
