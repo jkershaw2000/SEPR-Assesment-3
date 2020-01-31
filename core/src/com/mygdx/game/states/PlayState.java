@@ -470,7 +470,7 @@ public class PlayState extends State {
             fireStation = new Entity(new Vector2(33 + 2 * 32, 212 + 12 * 32), 160, 256,  new Texture("teal.jpg"));
 
             fortress = new Fortress(new Vector2(33 +  53 * 32, 212 + 11 * 32), 160, 192, new Texture("grey.png"),
-                    20000, 6, 4);
+                    20000, 6, 5);
 
             timeLimit = 45;
             map = new Texture("level5background.png");
@@ -941,8 +941,8 @@ public class PlayState extends State {
         if (fortress.getAlienPositions().size() > 0) {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
             Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
-                    250, null, 1, 5 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y + 30)}, 5);
+                    250, null, 1, 17 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                    new Vector2(coordinate.x, coordinate.y + 30)}, 0.5f);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
         }
