@@ -13,6 +13,7 @@ import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Timer;
 import com.mygdx.game.sprites.*;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -66,6 +67,8 @@ public class PlayState extends State {
     private String level;
 
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
+
+    private Boolean minigameWon = false;
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
@@ -408,16 +411,69 @@ public class PlayState extends State {
         }
 
         else if (levelNumber == 5) {
-            firetruck1pos = new Vector2();
-            firetruck2pos = new Vector2();
-            firetruck3pos = new Vector2();
-            firetruck4pos = new Vector2();
+            firetruck1pos = new Vector2(33 +  5 * 32, 212 + 12 * 32);
+            firetruck2pos = new Vector2(33 +  6 * 32, 212 + 12  * 32);
+            firetruck3pos = new Vector2(33 +  6 * 32, 212 +13 * 32);
+            firetruck4pos = new Vector2(33 +  6 * 32, 212 + 14 * 32);
+
+            {
+                // Fortress Collision
+                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 11 * 32), 160, 192, new Texture("teal.jpg")));
+
+                // Obstacle number refers to numbers on "Level 4 - Obstacle Index.jpg"
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 23 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 1
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 2
+                obstacles.add(new Entity(new Vector2(33 + 10 * 32, 212 + 21 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 3
+                obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 16 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 4
+                obstacles.add(new Entity(new Vector2(33 + 11 * 32, 212 + 10 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 5
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 5 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 6
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 6 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 7
+                obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 7 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 8
+                obstacles.add(new Entity(new Vector2(33 + 16 * 32, 212 + 8 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 9
+
+                obstacles.add(new Entity(new Vector2(33 + 35 * 32, 212 + 17 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 10
+                obstacles.add(new Entity(new Vector2(33 + 35 * 32, 212 + 9 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 11
+                obstacles.add(new Entity(new Vector2(33 + 35 * 32, 212 + 8 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 12
+                obstacles.add(new Entity(new Vector2(33 + 41 * 32, 212 + 12 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 13
+                obstacles.add(new Entity(new Vector2(33 + 44 * 32, 212 + 22 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 14
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 15
+                obstacles.add(new Entity(new Vector2(33 + 41 * 32, 212 + 0 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 16
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 2 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 17
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 18
+
+                // Lake
+                obstacles.add(new Entity(new Vector2(33 + 8 * 32, 212 + 3 * 32), 64, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 7 * 32, 212 + 2 * 32), 128, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 1 * 32), 256, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 0 * 32), 320, 32, new Texture("teal.jpg")));
+
+                // River
+                obstacles.add(new Entity(new Vector2(33 + 20 * 32, 212 + 0 * 32), 384, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 21 * 32, 212 + 1 * 32), 320, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 22 * 32, 212 + 2 * 32), 256, 32, new Texture("teal.jpg")));
+
+                obstacles.add(new Entity(new Vector2(33 + 22 * 32, 212 + 5 * 32), 256, 160, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 10 * 32), 224, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 11 * 32), 196, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 12 * 32), 224, 32, new Texture("teal.jpg")));
+
+                obstacles.add(new Entity(new Vector2(33 + 22 * 32, 212 + 15 * 32), 288, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 22 * 32, 212 + 16 * 32), 320, 96, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 19 * 32), 256, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 20 * 32), 224, 32, new Texture("teal.jpg")));
+
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 23 * 32), 224, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 13 * 32, 212 + 24 * 32), 544, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 9 * 32, 212 + 25 * 32), 736, 32, new Texture("teal.jpg")));
+
+
+            }
 
             // Placeholder values for position
-            fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
-            // Placeholder values for position
-            fortress = new Fortress(new Vector2(), 100, 100, new Texture("grey.png"),
-                    20000, 6, 4);
+            fireStation = new Entity(new Vector2(33 + 2 * 32, 212 + 12 * 32), 160, 256,  new Texture("teal.jpg"));
+
+            fortress = new Fortress(new Vector2(33 +  53 * 32, 212 + 11 * 32), 160, 192, new Texture("grey.png"),
+                    20000, 6, 5);
 
             timeLimit = 45;
             map = new Texture("level5background.png");
@@ -516,7 +572,9 @@ public class PlayState extends State {
 
         // Opens pause menu if user hits escape
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
+            //gameStateManager.push(new OptionState(gameStateManager));
             gameStateManager.push(new OptionState(gameStateManager));
+
         }
 
         // Switches active firetruck if the mouse clicks within another selectable firetruck.
@@ -615,8 +673,16 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
-                // Would call our mini-game here -- potentially on a random chance or every X amount of visits etc.
-                truck.setCurrentWater(truck.getMaxWater());
+                if (!truck.isRefilling()) {
+                    truck.setRefilling(true);
+                    minigameWon = false;
+                    gameStateManager.push(new MinigameState(gameStateManager, this));
+                    truck.setCurrentWater(truck.getMaxWater());
+                    System.out.println("Minigame won" + minigameWon);
+                }
+            }
+            else {
+                truck.setRefilling(false);
             }
         }
 
@@ -886,10 +952,14 @@ public class PlayState extends State {
         if (fortress.getAlienPositions().size() > 0) {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
             Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
-                    250, null, 1, 5 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y + 30)}, 5);
+                    250, null, 1, 17 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                    new Vector2(coordinate.x, coordinate.y + 30)}, 0.5f);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
         }
+    }
+
+    public void setMinigameWon(Boolean won) {
+        this.minigameWon = won;
     }
 }
