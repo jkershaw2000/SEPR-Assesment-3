@@ -18,6 +18,7 @@ public class Pipe extends Entity {
         this.rotation = rotation;
         this.correctRotations = correctRotations;
         this.drawable = new Sprite(texture);
+        //This doesn't have to be a sprite, keep that in mind for testing
         this.drawable.setPosition(position.x,position.y);
         this.drawable.setRotation(rotation);
     }
@@ -51,5 +52,7 @@ public class Pipe extends Entity {
     public Sprite getDrawable() {
         return this.drawable;
     }
+
+    public int getRotation() {return this.rotation;}
 
 }
