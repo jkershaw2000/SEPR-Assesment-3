@@ -11,9 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
-import com.mygdx.game.misc.Timer;
+import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -40,7 +39,7 @@ public class PlayState extends State {
     private Button quitLevel;
     private Button quitGame;
 
-    private Timer timer;
+    private Stopwatch stopwatch;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
     private float timeSinceLastFortressRegen;
@@ -522,7 +521,7 @@ public class PlayState extends State {
         firetrucks.add(firetruck3);
         firetrucks.add(firetruck4);
 
-        timer = new Timer(timeLimit);
+        stopwatch = new Stopwatch(timeLimit);
 
     }
 
@@ -619,7 +618,7 @@ public class PlayState extends State {
 
         // Calls input handler and updates timer each tick of the game.
         handleInput();
-        timer.update();
+        stopwatch.update();
 
         // Updates aliens and attacks firetruck if there is a firetruck in range and the Aliens attack cooldown is over.
         // Adds the created bullet projectile to the ArrayList bullets
@@ -661,7 +660,7 @@ public class PlayState extends State {
                         firetrucks.remove(truck);
                         if(firetrucks.size() == 0) {
                             levelLost = true;
-                            timeTaken = timer.getTime();
+                            timeTaken = stopwatch.getTime();
                         }
                         destroyedFiretrucks.add(truck);
                     }
@@ -713,7 +712,7 @@ public class PlayState extends State {
                 fortress.takeDamage(drop.getDamage());
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
-                    timeTaken = timer.getTime();
+                    timeTaken = stopwatch.getTime();
                     saveData.putBoolean(level, true);
                     saveData.flush();
                 }
@@ -728,22 +727,22 @@ public class PlayState extends State {
         timeSinceLastFortressRegen -= deltaTime;
 
         // If the time is greater than the time limit, calls end game state.
-        if (timer.getTime() > timeLimit) {
+        if (stopwatch.getTime() > timeLimit) {
             levelLost = true;
         }
 
         // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
-        if (timer.getTime() > timeLimit + 4) {
+        if (stopwatch.getTime() > timeLimit + 4) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
 
         // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
-        if (levelWon && timer.getTime() > timeTaken + 4) {
+        if (levelWon && stopwatch.getTime() > timeTaken + 4) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
 
         // Speeds up the background music when the player begins to run out of time.
-        if ((14 < timeLimit - timer.getTime()) && (timeLimit - timer.getTime() < 16)){
+        if ((14 < timeLimit - stopwatch.getTime()) && (timeLimit - stopwatch.getTime() < 16)){
             Kroy.INTRO.setPitch(Kroy.ID, 2f);
         }
     }
@@ -799,11 +798,11 @@ public class PlayState extends State {
                     drop.getHeight());
         }
 
-        timer.drawTime(spriteBatch, ui);
+        stopwatch.drawTime(spriteBatch, ui);
         ui.setColor(Color.WHITE);
 
         // Gives user 15 second warning as time limit approaches.
-        if ((timeLimit - 15) < timer.getTime() && timer.getTime() < (timeLimit - 10)) {
+        if ((timeLimit - 15) < stopwatch.getTime() && stopwatch.getTime() < (timeLimit - 10)) {
             ui.draw(spriteBatch, "The firestation is being attacked \n You have 15 seconds before it's destroyed!",
                     50, 1020);
         }

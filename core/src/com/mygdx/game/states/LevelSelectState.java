@@ -174,7 +174,6 @@ public class LevelSelectState extends State{
      */
     @Override
     public void update(float deltaTime) {
-
         handleInput();
 
         if(saveData.getBoolean("1") == true) {
