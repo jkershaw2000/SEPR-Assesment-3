@@ -675,7 +675,7 @@ public class PlayState extends State {
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
-                    gameStateManager.push(new MinigameState(gameStateManager, this));
+                    gameStateManager.push(new MinigameState(gameStateManager, this, ui));
                     truck.setCurrentWater(truck.getMaxWater());
                     System.out.println("Minigame won" + minigameWon);
                 }

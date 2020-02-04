@@ -30,9 +30,9 @@ public class MinigameState extends State {
      *
      * @param gameStateManager the class containing the stack of States
      */
-    public MinigameState(GameStateManager gameStateManager, PlayState playState) {
+    public MinigameState(GameStateManager gameStateManager, PlayState playState, BitmapFont font) {
         super(gameStateManager);
-        font = new BitmapFont(Gdx.files.internal("font.fnt"));
+        this.font = font;
         this.playState = playState;
         Random rand = new Random();
         positions = new Pipe[6][4];
