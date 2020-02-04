@@ -30,7 +30,7 @@ public class MinigameState extends State {
      *
      * @param gameStateManager the class containing the stack of States
      */
-    protected MinigameState(GameStateManager gameStateManager, PlayState playState) {
+    public MinigameState(GameStateManager gameStateManager, PlayState playState) {
         super(gameStateManager);
         font = new BitmapFont(Gdx.files.internal("font.fnt"));
         this.playState = playState;

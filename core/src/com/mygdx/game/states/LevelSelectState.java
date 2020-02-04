@@ -36,7 +36,6 @@ public class LevelSelectState extends State{
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
-
         background = new Texture("LevelSelectBackground.png");
         saveData = Gdx.app.getPreferences("Kroy");
 

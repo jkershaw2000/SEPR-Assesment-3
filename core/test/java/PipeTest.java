@@ -1,3 +1,5 @@
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -32,6 +34,7 @@ public class PipeTest {
         PowerMockito.mockStatic(Pipe.SpriteMaker.class);
         when(Pipe.SpriteMaker.makeSprite(any(Texture.class), any(Vector2.class),
                 anyInt())).thenReturn(mockedSprite);
+        Gdx.input = mock(Input.class);
     }
 
     @Test
@@ -49,8 +52,30 @@ public class PipeTest {
     }
 
     @Test
-    public void returnsTrueWhenInCorrectRotation() {
+    public void pipeShouldReturnTrueWhenInCorrectRotation() {
         Pipe p = new Pipe(new Vector2(0,0), 5, 5, mockedImg, 0, new int[] {0});
         Assertions.assertTrue(p.isCorrectRotation());
+    }
+
+    @Test
+    public void pipeShouldReturnFalseWhenNotInCorrectRotation() {
+        Pipe p = new Pipe(new Vector2(0,0), 5, 5, mockedImg, 0, new int[] {90});
+        Assertions.assertFalse(p.isCorrectRotation());
+    }
+
+    @Test
+    public void pipeShouldReturnTrueWhenInRange() {
+        when(Gdx.input.getX()).thenReturn(50);
+        when(Gdx.input.getY()).thenReturn(1030);
+        Pipe p = new Pipe(new Vector2(45,45), 20, 20, mockedImg, 0, null);
+        Assertions.assertTrue(p.inPipeRange());
+    }
+
+    @Test
+    public void pipeShouldReturnFalseWhenNotInRange() {
+        when(Gdx.input.getX()).thenReturn(50);
+        when(Gdx.input.getY()).thenReturn(1030);
+        Pipe p = new Pipe(new Vector2(100,100), 20, 20, mockedImg, 0, null);
+        Assertions.assertFalse(p.inPipeRange());
     }
 }
