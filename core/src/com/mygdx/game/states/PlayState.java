@@ -61,6 +61,9 @@ public class PlayState extends State {
     private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
     private ArrayList<Projectile> water = new ArrayList<Projectile>();
 
+    //Dalai Java - Repair fire engines at fire station
+    private ArrayList<Projectile> health = new ArrayList<Projectile>();
+
     private BitmapFont ui;
     private BitmapFont healthBars;
     private String level;
@@ -677,6 +680,8 @@ public class PlayState extends State {
                     minigameWon = false;
                     gameStateManager.push(new MinigameState(gameStateManager, this));
                     truck.setCurrentWater(truck.getMaxWater());
+                    //Dalai Java - Repair fire engines at fire station
+                    truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
                 }
             }
