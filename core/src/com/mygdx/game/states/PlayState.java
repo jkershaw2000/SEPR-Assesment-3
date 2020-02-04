@@ -569,6 +569,7 @@ public class PlayState extends State {
                 }
 
                 firetruck.updateCurrentWater(1);
+
             }
         }
 

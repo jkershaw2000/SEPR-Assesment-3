@@ -29,8 +29,8 @@ public class Firetruck extends Character {
         this.selected = selected;
 
         //Dalai Java - Repair fire engines at fire station
-        this.maxHealth=maxHealth;
-        this.currentHealth=maxHealth;
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
     }
 
     /**
@@ -99,8 +99,8 @@ public class Firetruck extends Character {
     }
 
     //Dalai Java - Repair fire engines at fire station
-    public int getMaxHealth() { return maxHealth;}
-    public int getCurrentHealth() { return currentHealth;}
+    public int getMaxHealth() { return maxHealth; }
+    public int getCurrentHealth() { return currentHealth; }
 
 
     public boolean isSelected() {
@@ -118,7 +118,7 @@ public class Firetruck extends Character {
     }
 
     //Dalai Java - Repair fire engines at fire station
-    public void setCurrentHealth(int currentHealth){ this.currentHealth = currentHealth;}
+    public void setCurrentHealth(int currentHealth){ this.currentHealth = currentHealth; }
 
     public void updateCurrentWater(int waterUsed) {
         if ((this.currentWater - waterUsed) < 0) {
@@ -129,7 +129,7 @@ public class Firetruck extends Character {
     }
 
     //Dalai Java - Repair fire engines at fire station
-    public void updateCurrenHealth(int healthUsed) {
+    public void updateCurrentHealth(int healthUsed) {
         if ((this.currentHealth - healthUsed) < 0) {
             this.currentHealth = 0;
             return;
