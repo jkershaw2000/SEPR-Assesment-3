@@ -15,6 +15,11 @@ public class Firetruck extends Character {
     private int maxWater;
     private int currentWater;
     private boolean selected;
+    private boolean refilling = true;
+
+    //Dalai Java - Repair fire engines at fire station
+    private int maxHealth;
+    private int currentHealth;
 
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, int maxWater, boolean selected) {
@@ -22,6 +27,10 @@ public class Firetruck extends Character {
         this.maxWater = maxWater;
         this.currentWater = maxWater;
         this.selected = selected;
+
+        //Dalai Java - Repair fire engines at fire station
+        this.maxHealth = maxHealth;
+        this.currentHealth = maxHealth;
     }
 
     /**
@@ -89,13 +98,27 @@ public class Firetruck extends Character {
         return currentWater;
     }
 
+    //Dalai Java - Repair fire engines at fire station
+    public int getMaxHealth() { return maxHealth; }
+    public int getCurrentHealth() { return currentHealth; }
+
+
     public boolean isSelected() {
         return selected;
     }
 
+    public boolean isRefilling() {
+        return refilling;
+    }
+
+    public void setRefilling(boolean refilling) { this.refilling = refilling; }
+
     public void setCurrentWater(int currentWater) {
         this.currentWater = currentWater;
     }
+
+    //Dalai Java - Repair fire engines at fire station
+    public void setCurrentHealth(int currentHealth){ this.currentHealth = currentHealth; }
 
     public void updateCurrentWater(int waterUsed) {
         if ((this.currentWater - waterUsed) < 0) {
@@ -103,6 +126,15 @@ public class Firetruck extends Character {
             return;
         }
         this.currentWater -=  waterUsed;
+    }
+
+    //Dalai Java - Repair fire engines at fire station
+    public void updateCurrentHealth(int healthUsed) {
+        if ((this.currentHealth - healthUsed) < 0) {
+            this.currentHealth = 0;
+            return;
+        }
+        this.currentHealth -=  healthUsed;
     }
 
     public void setSelected(boolean selected) {

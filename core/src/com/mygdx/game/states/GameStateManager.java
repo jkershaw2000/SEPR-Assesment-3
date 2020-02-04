@@ -30,6 +30,10 @@ public class GameStateManager {
         states.push(state);
     }
 
+    public State peek() {
+        return states.peek();
+    }
+
     /**
      * Removes a State from the top of the stack
      */

@@ -2,32 +2,38 @@ package com.mygdx.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.misc.Button;
+import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.Pipe;
 import java.util.List;
 import java.util.Random;
 import com.badlogic.gdx.utils.Timer;
 
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 public class MinigameState extends State {
     Button giveup;
     Pipe[][] positions;
-    Boolean finished;
+    String finished;
     int[] rotations = new int[] {0, 90, 180, 270};
     Texture minigameComplete;
+    Texture minigameLost;
+    PlayState playState;
+    Stopwatch stopwatch;
+    BitmapFont font;
 
     /**
      * Constructor to initialise the minigame
      *
      * @param gameStateManager the class containing the stack of States
      */
-    protected MinigameState(GameStateManager gameStateManager) {
+    public MinigameState(GameStateManager gameStateManager, PlayState playState, BitmapFont font) {
         super(gameStateManager);
+        this.font = font;
+        this.playState = playState;
         Random rand = new Random();
         positions = new Pipe[6][4];
         int startPos = rand.nextInt(3);
@@ -36,6 +42,7 @@ public class MinigameState extends State {
         positions[5][endPos] = new Pipe(new Vector2(1000,400 + endPos * 100), 100, 100, new Texture("StartPipe.png"), 180, new int[] {180});
         //If we reach a dead end (unlikely but possible), find another path until one is found
         Boolean pathFound = false;
+        stopwatch = new Stopwatch(60);
         while (!pathFound) {
             pathFound = findPath(new Vector2(1, startPos), new Vector2(5, endPos), new Vector2(0, startPos));
             System.out.println(pathFound);
@@ -47,13 +54,16 @@ public class MinigameState extends State {
                 }
             }
         }
+        fillScreen();
         giveup = new Button(new Texture("giveup.png"), new Texture ("giveup.png"), 190, 49, new Vector2(750,200),false,false);
         minigameComplete = new Texture("MinigameComplete.png");
-        finished = false;
+        minigameLost = new Texture("MinigameLost.png");
+        finished = null;
     }
 
     @Override
     public void update(float deltaTime) {
+        stopwatch.update();
         if (giveup.mouseInRegion() && giveup.isLocked() == false) {
             giveup.setActive(true);
             if (Gdx.input.isTouched()) {
@@ -67,6 +77,8 @@ public class MinigameState extends State {
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
+        stopwatch.drawTime(spriteBatch, font);
+        font.draw(spriteBatch, "Connect the pipes!" , 700, 900);
         for (int i = 0; i < 6; i++) {
             for (Pipe pipe : positions[i]) {
                 if (!(pipe == null)) {
@@ -89,13 +101,29 @@ public class MinigameState extends State {
                 }
             }
         }
-        if (finished) {
+        if (finished == "won") {
             //Makes the 'minigame complete' sprite appear
             spriteBatch.draw(minigameComplete, 600, 600, 503, 73);
         }
+        if (finished == "lost") {
+            //Makes the 'minigame complete' sprite appear
+            spriteBatch.draw(minigameLost, 700, 600, 330, 73);
+        }
         spriteBatch.end();
-        if (allCorrect && !finished) {
-            finished = true;
+        if (allCorrect && finished == null) {
+            finished = "won";
+            playState.setMinigameWon(true);
+            //Sleeps for one second
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    gameStateManager.pop();
+                }
+            }, 1);
+            //Returns to the game
+        }
+        if (stopwatch.getTime() > 60 && finished == null) {
+            finished = "lost";
             //Sleeps for one second
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -252,6 +280,24 @@ public class MinigameState extends State {
         }
         return null;
     }
+
+    /**
+     * Fills any square which is not blank with a random pipe
+     * These pipes will be accepted with any rotation so do not affect the game
+     */
+    public void fillScreen() {
+        String[] typesOfPipe = new String[] {"StraightPipe.png", "BendyPipe.png"};
+        for (int i = 1; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (positions[i][j] == null) {
+                    positions[i][j] = new Pipe(new Vector2(500 + 100 * i, 400 + 100 * j), 100,
+                            100, new Texture (typesOfPipe[(new Random()).nextInt(typesOfPipe.length)]),
+                            rotations[(new Random()).nextInt(rotations.length)], new int[] {0, 90, 180, 270});
+                }
+            }
+        }
+    }
+
 
     @Override
     public void dispose() {

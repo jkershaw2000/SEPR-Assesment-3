@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
-import com.mygdx.game.misc.Timer;
+import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
 
 import java.util.ArrayList;
@@ -39,7 +39,7 @@ public class PlayState extends State {
     private Button quitLevel;
     private Button quitGame;
 
-    private Timer timer;
+    private Stopwatch stopwatch;
     private float alienSpawnCountdown;
     private float timeSinceAlienKilled;
     private float timeSinceLastFortressRegen;
@@ -61,11 +61,16 @@ public class PlayState extends State {
     private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
     private ArrayList<Projectile> water = new ArrayList<Projectile>();
 
+    //Dalai Java - Repair fire engines at fire station
+    private ArrayList<Projectile> health = new ArrayList<Projectile>();
+
     private BitmapFont ui;
     private BitmapFont healthBars;
     private String level;
 
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
+
+    private Boolean minigameWon = false;
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
@@ -559,7 +564,7 @@ public class PlayState extends State {
         firetrucks.add(firetruck3);
         firetrucks.add(firetruck4);
 
-        timer = new Timer(timeLimit);
+        stopwatch = new Stopwatch(timeLimit);
 
     }
 
@@ -604,13 +609,14 @@ public class PlayState extends State {
                 }
 
                 firetruck.updateCurrentWater(1);
+
             }
         }
 
         // Opens pause menu if user hits escape
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
             //gameStateManager.push(new OptionState(gameStateManager));
-            gameStateManager.push(new MinigameState(gameStateManager));
+            gameStateManager.push(new OptionState(gameStateManager));
 
         }
 
@@ -656,7 +662,7 @@ public class PlayState extends State {
 
         // Calls input handler and updates timer each tick of the game.
         handleInput();
-        timer.update();
+        stopwatch.update();
 
         // Updates aliens and attacks firetruck if there is a firetruck in range and the Aliens attack cooldown is over.
         // Adds the created bullet projectile to the ArrayList bullets
@@ -698,7 +704,7 @@ public class PlayState extends State {
                         firetrucks.remove(truck);
                         if(firetrucks.size() == 0) {
                             levelLost = true;
-                            timeTaken = timer.getTime();
+                            timeTaken = stopwatch.getTime();
                         }
                         destroyedFiretrucks.add(truck);
                     }
@@ -710,8 +716,18 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
-                // Would call our mini-game here -- potentially on a random chance or every X amount of visits etc.
-                truck.setCurrentWater(truck.getMaxWater());
+                if (!truck.isRefilling()) {
+                    truck.setRefilling(true);
+                    minigameWon = false;
+                    gameStateManager.push(new MinigameState(gameStateManager, this, ui));
+                    truck.setCurrentWater(truck.getMaxWater());
+                    //Dalai Java - Repair fire engines at fire station
+                    truck.setCurrentHealth(truck.getMaxHealth());
+                    System.out.println("Minigame won" + minigameWon);
+                }
+            }
+            else {
+                truck.setRefilling(false);
             }
         }
 
@@ -742,7 +758,7 @@ public class PlayState extends State {
                 fortress.takeDamage(drop.getDamage());
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
-                    timeTaken = timer.getTime();
+                    timeTaken = stopwatch.getTime();
                     saveData.putBoolean(level, true);
                     saveData.flush();
                 }
@@ -757,22 +773,22 @@ public class PlayState extends State {
         timeSinceLastFortressRegen -= deltaTime;
 
         // If the time is greater than the time limit, calls end game state.
-        if (timer.getTime() > timeLimit) {
+        if (stopwatch.getTime() > timeLimit) {
             levelLost = true;
         }
 
         // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
-        if (timer.getTime() > timeLimit + 4) {
+        if (stopwatch.getTime() > timeLimit + 4) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
 
         // Forces user back to level select screen, even without needing to press ENTER after 4 seconds.
-        if (levelWon && timer.getTime() > timeTaken + 4) {
+        if (levelWon && stopwatch.getTime() > timeTaken + 4) {
             gameStateManager.set(new LevelSelectState(gameStateManager));
         }
 
         // Speeds up the background music when the player begins to run out of time.
-        if ((14 < timeLimit - timer.getTime()) && (timeLimit - timer.getTime() < 16)){
+        if ((14 < timeLimit - stopwatch.getTime()) && (timeLimit - stopwatch.getTime() < 16)){
             Kroy.INTRO.setPitch(Kroy.ID, 2f);
         }
     }
@@ -828,11 +844,11 @@ public class PlayState extends State {
                     drop.getHeight());
         }
 
-        timer.drawTime(spriteBatch, ui);
+        stopwatch.drawTime(spriteBatch, ui);
         ui.setColor(Color.WHITE);
 
         // Gives user 15 second warning as time limit approaches.
-        if ((timeLimit - 15) < timer.getTime() && timer.getTime() < (timeLimit - 10)) {
+        if ((timeLimit - 15) < stopwatch.getTime() && stopwatch.getTime() < (timeLimit - 10)) {
             ui.draw(spriteBatch, "The firestation is being attacked \n You have 15 seconds before it's destroyed!",
                     50, 1020);
         }
@@ -982,9 +998,13 @@ public class PlayState extends State {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
             Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
                     250, null, 1, 17 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y + 30)}, 0.5f);
+                    new Vector2(coordinate.x, coordinate.y - 300)}, 0.5f);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
         }
+    }
+
+    public void setMinigameWon(Boolean won) {
+        this.minigameWon = won;
     }
 }

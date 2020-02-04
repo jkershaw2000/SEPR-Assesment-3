@@ -12,14 +12,14 @@ import com.mygdx.game.Kroy;
  * @author Lucy Ivatt
  */
 
-
-public class Timer {
+//ASSESSMENT 3: We have renamed this class as LibGDX already uses a class called Timer which led to confusion
+public class Stopwatch {
     private float time;
     private float timeLimit;
     private String timeString;
 
 
-    public Timer(float timeLimit) {
+    public Stopwatch(float timeLimit) {
         time = 0;
         this.timeLimit = timeLimit;
         timeString = "0";

@@ -17,9 +17,16 @@ public class Pipe extends Entity {
         super(position, width, height, texture);
         this.rotation = rotation;
         this.correctRotations = correctRotations;
-        this.drawable = new Sprite(texture);
-        this.drawable.setPosition(position.x,position.y);
-        this.drawable.setRotation(rotation);
+        this.drawable = SpriteMaker.makeSprite(texture, position, rotation);
+    }
+
+    public static class SpriteMaker {
+        public static Sprite makeSprite(Texture texture, Vector2 position, int rotation) {
+            Sprite sprite = new Sprite(texture);
+            sprite.setPosition(position.x,position.y);
+            sprite.setRotation(rotation);
+            return sprite;
+        }
     }
 
     public Boolean inPipeRange() {
@@ -52,5 +59,7 @@ public class Pipe extends Entity {
     public Sprite getDrawable() {
         return this.drawable;
     }
+
+    public int getRotation() {return this.rotation;}
 
 }
