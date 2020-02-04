@@ -482,6 +482,46 @@ public class PlayState extends State {
             firetruck3pos = new Vector2();
             firetruck4pos = new Vector2();
 
+            {
+
+                obstacles.add(new Entity(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96, new Texture("teal.jpg") ));//fortress Collision
+                obstacles.add(new Entity(new Vector2(33 + 25 * 32, 212 + 21 * 32), 128, 64, new Texture("teal.jpg")));
+
+
+                obstacles.add(new Entity(new Vector2(33 + 10 * 32, 212 + 21 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 1
+                obstacles.add(new Entity(new Vector2(33 + 18 * 32, 212 + 22 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 2
+                obstacles.add(new Entity(new Vector2(33 + 10 * 32, 212 + 18 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 3
+                obstacles.add(new Entity(new Vector2(33 + 22 * 32, 212 + 18 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 4
+                obstacles.add(new Entity(new Vector2(33 + 19 * 32, 212 + 15 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 5
+                obstacles.add(new Entity(new Vector2(33 + 13 * 32, 212 + 14 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 6
+                obstacles.add(new Entity(new Vector2(33 + 10 * 32, 212 + 11 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 7
+                obstacles.add(new Entity(new Vector2(33 + 23 * 32, 212 + 11 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 8
+                obstacles.add(new Entity(new Vector2(33 + 25 * 32, 212 + 8 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 9
+                obstacles.add(new Entity(new Vector2(33 + 11 * 32, 212 + 4 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 10
+                obstacles.add(new Entity(new Vector2(33 + 16 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 11
+
+                obstacles.add(new Entity(new Vector2(33 + 30 * 32, 212 + 18 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 12
+                obstacles.add(new Entity(new Vector2(33 + 29 * 32, 212 + 14 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 13
+                obstacles.add(new Entity(new Vector2(33 + 29 * 32, 212 + 12 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 14
+                obstacles.add(new Entity(new Vector2(33 + 33 * 32, 212 + 13 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 15
+                obstacles.add(new Entity(new Vector2(33 + 35 * 32, 212 + 16 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 16
+                obstacles.add(new Entity(new Vector2(33 + 38 * 32, 212 + 13 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 17
+                obstacles.add(new Entity(new Vector2(33 + 37 * 32, 212 + 11 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 18
+                obstacles.add(new Entity(new Vector2(33 + 43 * 32, 212 + 12 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 19
+                obstacles.add(new Entity(new Vector2(33 + 42 * 32, 212 + 21 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 20
+                obstacles.add(new Entity(new Vector2(33 + 44 * 32, 212 + 18 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 21
+                obstacles.add(new Entity(new Vector2(33 + 46 * 32, 212 + 21 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 22
+                obstacles.add(new Entity(new Vector2(33 + 37 * 32, 212 + 21 * 32), 96, 64, new Texture("teal.jpg"))); // Obstacle 23
+                obstacles.add(new Entity(new Vector2(33 + 38 * 32, 212 + 23 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 24
+                obstacles.add(new Entity(new Vector2(33 + 38 * 32, 212 + 20 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 25
+                obstacles.add(new Entity(new Vector2(33 + 32 * 32, 212 + 6 * 32), 64, 64, new Texture("teal.jpg"))); // Obstacle 26
+                obstacles.add(new Entity(new Vector2(33 + 32 * 32, 212 + 8 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 27
+                obstacles.add(new Entity(new Vector2(33 + 36 * 32, 212 + 3 * 32), 128, 32, new Texture("teal.jpg"))); // Obstacle 28
+                obstacles.add(new Entity(new Vector2(33 + 44 * 32, 212 + 8 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 29
+                obstacles.add(new Entity(new Vector2(33 + 43 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 30
+                obstacles.add(new Entity(new Vector2(33 + 46 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
+
+            }
             // Placeholder values for position
             fireStation = new Entity(new Vector2(), 96, 128,  new Texture("teal.jpg"));
             // Placeholder values for position
