@@ -14,6 +14,13 @@ import com.badlogic.gdx.utils.Timer;
 
 import java.util.*;
 
+//ASSESSMENT 3 - Created as part orf implementing minigame
+/**
+ * An implementation of the abstract class which controls the minigame. Creates a pipe-connecting game using the Pipe
+ * class
+ *
+ * @author Peter Clark
+ */
 public class MinigameState extends State {
     Button giveup;
     Pipe[][] positions;
@@ -29,6 +36,8 @@ public class MinigameState extends State {
      * Constructor to initialise the minigame
      *
      * @param gameStateManager the class containing the stack of States
+     * @param playState the PlayState the minigame is being initialised on top of
+     * @param font the font used to write the time and instructions onto the screen
      */
     public MinigameState(GameStateManager gameStateManager, PlayState playState, BitmapFont font) {
         super(gameStateManager);
@@ -61,6 +70,10 @@ public class MinigameState extends State {
         finished = null;
     }
 
+    /**
+     * Updates the game logic before the next render() is called.
+     * @param deltaTime the amount of time which has passed since the last render() call
+     */
     @Override
     public void update(float deltaTime) {
         stopwatch.update();
@@ -74,6 +87,10 @@ public class MinigameState extends State {
         }
     }
 
+    /**
+     * Used to draw elements onto the screen.
+     * @param spriteBatch a container for all elements which need rendering to the screen.
+     */
     @Override
     public void render(SpriteBatch spriteBatch) {
         spriteBatch.begin();
@@ -192,6 +209,13 @@ public class MinigameState extends State {
         }
     }
 
+    /**
+     * Chooses which pipe should be used to connect the current square to the one before it and the one after it
+     * @param lastPos the point in the path before the one we are placing a pipe on
+     * @param currentPos the point in the path we are placing a pipe on
+     * @param nextPos the point in the path after the one we are placing a pipe on
+     * @return the pipe which is required in the position currentPos
+     */
     public Pipe choosePipe(Vector2 lastPos, Vector2 currentPos, Vector2 nextPos) {
         //If last pipe was behind
         if (lastPos.x == currentPos.x - 1) {

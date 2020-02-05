@@ -719,6 +719,7 @@ public class PlayState extends State {
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
+                    //ASSESSMENT 3 - beings the minigame
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
                     truck.setCurrentWater(truck.getMaxWater());
                     //Dalai Java - Repair fire engines at fire station

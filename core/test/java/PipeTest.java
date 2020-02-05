@@ -22,6 +22,7 @@ import static org.mockito.Mockito.when;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(Pipe.SpriteMaker.class)
+//ASSESSMENT 3 - Created as part of implementing minigame
 public class PipeTest {
 
     @Mock

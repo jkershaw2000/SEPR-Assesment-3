@@ -1,5 +1,9 @@
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Pipe;
 import com.mygdx.game.states.GameStateManager;
@@ -8,24 +12,30 @@ import com.mygdx.game.states.PlayState;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
+import org.w3c.dom.Text;
+
+import static org.mockito.Mockito.mock;
 
 public class MinigameTest {
 
     MinigameState m;
+    Texture mockedImg;
+    SpriteBatch mockBatch;
 
     @Test
     public void setUp() {
         GameStateManager g = new GameStateManager();
         PlayState p = Mockito.mock(PlayState.class);
         BitmapFont f = Mockito.mock(BitmapFont.class);
+        mockBatch = Mockito.mock(SpriteBatch.class);
+        mockedImg = Mockito.mock(Texture.class);
         m = new MinigameState(g,p,f);
+        Gdx.input = mock(Input.class);
     }
 
     @Test
-    public void straightAcrossLineShouldChooseStraightAcrossPipeTest() {
-        Pipe p = m.choosePipe(new Vector2(0,0), new Vector2(1,0), new Vector2(2,0));
-        Assertions.assertEquals(p.getTexture(), "straightPipe.png");
-        Assertions.assertEquals(p.correctRotations, new int[] {90, 270});
+    public void touchingPipeShouldRotateItTest() {
+        //Probably not possible
+        Pipe p = new Pipe(new Vector2(0,0), 5, 5, mockedImg, 0, null);
     }
-
 }
