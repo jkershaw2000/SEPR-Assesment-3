@@ -1,4 +1,3 @@
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,10 +8,9 @@ import com.mygdx.game.sprites.Pipe;
 import com.mygdx.game.states.GameStateManager;
 import com.mygdx.game.states.MinigameState;
 import com.mygdx.game.states.PlayState;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.mockito.Mockito;
-import org.w3c.dom.Text;
 
 import static org.mockito.Mockito.mock;
 
@@ -22,7 +20,7 @@ public class MinigameTest {
     Texture mockedImg;
     SpriteBatch mockBatch;
 
-    @Test
+    @Before
     public void setUp() {
         GameStateManager g = new GameStateManager();
         PlayState p = Mockito.mock(PlayState.class);

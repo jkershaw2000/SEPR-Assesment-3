@@ -77,4 +77,8 @@ public class Projectile extends Entity
     public int getDamage() {
         return damage;
     }
+
+    public float getSpeed() { return speed;}
+
+    public Vector2 getDirection() { return this.direction; }
 }

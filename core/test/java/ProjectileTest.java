@@ -3,12 +3,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Projectile;
 import com.mygdx.game.sprites.Unit;
 import org.junit.Before;
-import org.junit.experimental.categories.Category;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
+import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
-import org.junit.runner.notification.Failure;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
@@ -53,10 +50,34 @@ public class ProjectileTest {
     public ProjectileTest(Unit instance, boolean expected){
         this.instance = instance;
         this.expected = expected;
-
     }
 
-    @Parameterized.Parameters
+    @Test
+    public void testEightParameterConstructorWorksAsExpected() {
+        Assertions.assertEquals(projectile.getMaxLength(), 10);
+        Assertions.assertEquals(projectile.getDamage(), 10);
+        Assertions.assertEquals(projectile.getSpeed(), 10.0f);
+        Assertions.assertEquals(projectile.getDirection(), new Vector2(100, 100).nor());
+    }
+
+    @Test
+    public void testSevenParameterConstructorWorksAsExpected() {
+        Projectile p = new Projectile(new Vector2(100, 100), 10, 10, null,
+                new Vector2(200, 200), 10.0f, 10);
+        Assertions.assertEquals(p.getDamage(), 10);
+        Assertions.assertEquals(p.getSpeed(), 10.0f);
+        Assertions.assertEquals(p.getDirection(), new Vector2(100, 100).nor());
+    }
+
+    @Test
+    public void setLengthShouldReturnDistanceBetweenVectors() {
+        projectile.update();
+        projectile.setLength();
+        System.out.println(projectile.getLength());
+        assertEquals(10.0, projectile.getLength());
+    }
+
+    @Parameters
     public static Collection input() {
         return Arrays.asList(new Object[][] { {instance1, true}, {instance2, true}, {instance3, false} });
     }

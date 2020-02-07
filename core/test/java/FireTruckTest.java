@@ -27,7 +27,7 @@ class unitForFireTruck extends Unit {
 }
 
 
-public class testFireTruck {
+public class FireTruckTest {
 
     //Instance of entity class to test methods on
     Entity testEntity = new Entity(new Vector2(200, 200), 100, 100, null);
