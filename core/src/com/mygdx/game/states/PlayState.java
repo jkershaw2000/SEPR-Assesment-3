@@ -683,6 +683,7 @@ public class PlayState extends State {
 
         // Changes which truck is moving and calls the truckMovement() method with the selected truck as input.
         if (firetruck1.isSelected()) {
+            //LUKAS
             truckMovement(firetruck1);
         } else if (firetruck2.isSelected()) {
             truckMovement(firetruck2);
@@ -977,6 +978,13 @@ public class PlayState extends State {
                 Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 4 Health: " + Integer.toString(firetruck4.getCurrentHealth()), 1499,
                 Kroy.HEIGHT - 920);
+
+        for (Firetruck truck: firetrucks) {
+            if (truck.getCurrentWater() < 20) {
+                spriteBatch.draw(new Texture("RefillWarning.png"), truck.getPosition().x - 20,
+                        truck.getPosition().y + 40);
+            }
+        }
 
         // If end game reached, draws level fail or level won images to the screen
         if (levelLost) {

@@ -13,7 +13,7 @@ public class EntityTest {
     //Instance of entity class to test methods on
     Entity testEntity = new Entity(new Vector2(100, 100), 100, 100, null);
 
-    //Testing a standard move and checking corners
+    //Testing that the ‘position’ and ‘topRight’ variables are initialised correctly
     @Test
     public void testSetPositionStandard(){
         testEntity.setPosition(100, 100);
