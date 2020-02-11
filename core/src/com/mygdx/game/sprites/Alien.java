@@ -112,6 +112,8 @@ public class Alien extends Character {
         return timeSinceAttack;
     }
 
+    public int getCurrentIndex() {return this.currentIndex;}
+
     public void resetTimeSinceAttack() {
         this.timeSinceAttack = 0;
     }

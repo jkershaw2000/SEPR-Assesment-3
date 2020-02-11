@@ -19,7 +19,7 @@ public class AlienTest {
 
     //Test Alien with wayPoints
     Alien wayPointAlien = new Alien(new Vector2(100, 100), 100, 100, null, 100,
-            10, null, 0, 5, new Vector2[]{new Vector2(200, 200), new Vector2(200, 200)}, 10.0f);
+            10, null, 0, 5, new Vector2[]{new Vector2(100, 100), new Vector2(300, 300)}, 10.0f);
 
     //ASSESSMENT 3 - Test basic constructor functionality
     @Test
@@ -71,6 +71,18 @@ public class AlienTest {
         assertEquals(null, testAlien.getTarget());
     }
 
+    @Test
+    public void alienShouldMoveToNewWaypointWhenReachedOldOneTest() {
+        wayPointAlien.update();
+        assertEquals(wayPointAlien.getCurrentIndex(), 1);
+    }
 
+    @Test
+    public void alienShouldGoBackToInitialWaypointWhenEndReachedTest() {
+        wayPointAlien.update();
+        wayPointAlien.setPosition(300,300);
+        wayPointAlien.update();
+        assertEquals(wayPointAlien.getCurrentIndex(), 0);
+    }
 
 }
