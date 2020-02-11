@@ -69,6 +69,8 @@ public class Fortress extends Unit {
             alienPositions.add(new Vector2(33 + 57 * 32, 212 + 6 * 32));
         }
 
+
+
     }
 
     public float getSpawnRate() {

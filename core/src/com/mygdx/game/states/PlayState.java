@@ -874,7 +874,7 @@ public class PlayState extends State {
         timeSinceLastFortressRegen -= deltaTime;
 
         // If the time is greater than the time limit, calls end game state.
-        if (stopwatch.getTime() > timeLimit) {
+        if (stopwatch.getTime() >= timeLimit) {
             levelLost = true;
         }
 
@@ -1132,9 +1132,9 @@ public class PlayState extends State {
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
         }
-        if (timeLimit-30 < stopwatch.getTime()){
-            for(Alien alien: aliens){
-                alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
+        //if (timeLimit-30 < stopwatch.getTime()){
+           // for(Alien alien: aliens){
+                // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
             }
         }
     }

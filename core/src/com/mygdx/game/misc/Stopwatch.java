@@ -43,6 +43,10 @@ public class Stopwatch {
     }
 
     public float getTime() {
-        return time;
+        if(time < 0){
+            return 0;
+        } else{
+            return time;
+        }
     }
 }

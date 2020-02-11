@@ -102,6 +102,11 @@ public class Alien extends Character {
             return true;
         }
     }
+    /*// Assesment 3
+    public void moveToFireStation(Vector2 location) {
+        this.waypoints[0] = location;
+    }
+     */
 
     public float getTimeSinceAttack() {
         return timeSinceAttack;
