@@ -14,6 +14,7 @@ import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -532,31 +533,31 @@ public class PlayState extends State {
 
                 //River - Left
                 obstacles.add(new Entity(new Vector2(33 + 7 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg")));
-                obstacles.add(new Entity(new Vector2(33 + 6 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 2 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 3 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 6 * 32), 32, 128, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 10 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 1 * 32, 212 + 12 * 32), 32, 96, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 15 * 32), 32, 256, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 23 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 24 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 25 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
+                obstacles.add(new Entity(new Vector2(33 + 6 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 2 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 3 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 6 * 32), 32, 128, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 10 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 1 * 32, 212 + 12 * 32), 32, 96, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 15 * 32), 32, 256, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 23 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 24 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 25 * 32), 32, 64, new Texture("teal.jpg")));
 
                 // River - Right
-                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 52 * 32, 212 + 2 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 6 * 32), 32, 96, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 9 * 32), 32, 128, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 56 * 32, 212 + 13 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 15 * 32), 32, 196, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 21 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 24 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 25 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
+                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 52 * 32, 212 + 2 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 6 * 32), 32, 96, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 9 * 32), 32, 128, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 56 * 32, 212 + 13 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 15 * 32), 32, 196, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 21 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 24 * 32), 64, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 25 * 32), 32, 32, new Texture("teal.jpg")));
 
 
             }
@@ -765,7 +766,7 @@ public class PlayState extends State {
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
-                if (bullet.hitUnit(truck)) {
+                if (bullet.hitUnit(truck) && truck.canBeDamaged) {
                     truck.takeDamage(bullet.getDamage());
                     bullets.remove(bullet);
                     if (truck.getCurrentHealth() <= 0) {
@@ -785,18 +786,23 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
+                truck.canBeDamaged = false; // DJ - making fire engines invulnerable when in station
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
                     //ASSESSMENT 3 - beings the minigame
+
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
+
                     truck.setCurrentWater(truck.getMaxWater());
 
                     //Dalai Java - Repair fire engines at fire station
                     truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
+
                 }
             } else {
+                truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
             }
         }
