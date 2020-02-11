@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
@@ -683,6 +684,7 @@ public class PlayState extends State {
         }
 
         // Changes which truck is moving and calls the truckMovement() method with the selected truck as input.
+        /**
         if (firetruck1.isSelected()) {
             //LUKAS
             truckMovement(firetruck1);
@@ -692,6 +694,12 @@ public class PlayState extends State {
             truckMovement(firetruck3);
         } else if (firetruck4.isSelected()){
             truckMovement(firetruck4);
+        }
+         **/
+        for(Firetruck truck : firetrucks){
+            if(truck.isSelected()) {
+                truck.truckMovement(obstacles);
+            }
         }
 
         // Checks if user presses ENTER when game is over and takes them back to level select.
@@ -921,8 +929,14 @@ public class PlayState extends State {
 
         // Draws updated firetrucks and overhead water tank statistics.
         for (Firetruck truck : firetrucks) {
-            spriteBatch.draw(truck.getTexture(), truck.getPosition().x, truck.getPosition().y, truck.getWidth(),
-                    truck.getHeight());
+            // Dalai Java - changed drawing to make rotation easier (do not need a unique texture for a rotation)
+            Sprite toDraw = new Sprite(truck.getTexture());
+            toDraw.setPosition(truck.getPosition().x, truck.getPosition().y);
+            toDraw.setRegionHeight(truck.getHeight());
+            toDraw.setRegionWidth(truck.getWidth());
+            toDraw.setRotation(truck.truckDirection());
+            toDraw.draw(spriteBatch);
+            // DJ --------------------------------------------------------------------------------------
             healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x,
                     truck.getPosition().y + truck.getHeight() + 10);
         }
@@ -1059,6 +1073,7 @@ public class PlayState extends State {
      * truck is currently selected.
      * @param truck the truck which is currently selected
      */
+    /**
     public void truckMovement(Firetruck truck) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             truck.setTexture(new Texture("truck.png"));
@@ -1123,6 +1138,7 @@ public class PlayState extends State {
             }
         }
     }
+     **/
 
     /**
      * Used to spawn the Aliens around the fortress by accessing the spawnRate and alienPositions stored within
