@@ -557,7 +557,7 @@ public class PlayState extends State {
 
             }
             // Placeholder values for position
-            fireStation = new Entity(new Vector2(33 + 21 * 32, 212 + 0 * 32 ), 320, 96,  new Texture("teal.jpg"));
+            fireStation = new Entity(new Vector2(33 + 21 * 32, 212 + 0 * 32), 320, 96,  new Texture("teal.jpg"));
             // Placeholder values for position
             fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96, new Texture("grey.png"),
                     20000, 6, 4);
@@ -728,7 +728,7 @@ public class PlayState extends State {
                 if (bullet.hitUnit(truck)) {
                     truck.takeDamage(bullet.getDamage());
                     bullets.remove(bullet);
-                    if (truck.getCurrentHealth() < 0) {
+                    if (truck.getCurrentHealth() <= 0) {
                         truck.setSelected(false);
                         firetrucks.remove(truck);
                         if(firetrucks.size() == 0) {
@@ -1028,9 +1028,14 @@ public class PlayState extends State {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
             Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
                     250, null, 1, 17 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y - 300)}, 0.5f);
+                    new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x-300, coordinate.y)}, 0.5f);
             aliens.add(alien);
             fortress.getAlienPositions().remove(coordinate);
+        }
+        if (timeLimit-30 < stopwatch.getTime()){
+            for(Alien alien: aliens){
+                alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
+            }
         }
     }
 

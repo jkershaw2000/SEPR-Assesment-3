@@ -100,7 +100,14 @@ public class Firetruck extends Character {
 
     //Dalai Java - Repair fire engines at fire station
     public int getMaxHealth() { return maxHealth; }
-    public int getCurrentHealth() { return currentHealth; }
+
+    public int getCurrentHealth() {
+        if (currentHealth < 0){
+            return 0;
+        } else{
+            return currentHealth;
+        }
+    }
 
 
     public boolean isSelected() {
