@@ -1,6 +1,7 @@
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Unit;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,14 +19,15 @@ class unitTestClass extends Unit {
 
 
 //Class to test the methods in the Unit Class
-public class unitTest {
+public class UnitTest {
 
     //Instance of the Unit class to test on
     Unit testUnit = new unitTestClass(new Vector2(0, 0),100, 100, null, 100);
 
-    //Test for constructor that takes maxHealth
+    //ASSESSMENT 3 - Test for constructor that takes maxHealth
     @Test
-    public void testShouldChangeMaxHealthToGivenParameter(){
+    public void constructorsShouldSetCorrectParametersToValues(){
+        Assertions.assertEquals(testUnit.getCurrentHealth(), 100);
     }
 
 
@@ -68,7 +70,7 @@ public class unitTest {
 
     //Test if setCurrentHealth will cap the additional health to maxHealth
     @Test
-    public void testAddHealthWillCapAddedHealth(){
+    public void testAddHealthShouldCapAddedHealth(){
         testUnit.setCurrentHealth(100);
         testUnit.addHealth(50);
         assertEquals(100, testUnit.getCurrentHealth());
@@ -76,7 +78,7 @@ public class unitTest {
 
     //Test if addHealth will take the absolute value of the argument
     @Test
-    public void testAddHealthRejectNegativeHeal(){
+    public void testAddHealthShouldRejectNegativeHeal(){
         testUnit.setCurrentHealth(50);
         testUnit.addHealth(-50);
         assertEquals(100, testUnit.getCurrentHealth());

@@ -61,6 +61,10 @@ public class PlayState extends State {
     private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
     private ArrayList<Projectile> water = new ArrayList<Projectile>();
 
+    //Dalai Java - multiple water streams
+    private  ArrayList<Bullet> bullet = new ArrayList<Bullet>();
+    private ArrayList<Bullet> projectiles = new ArrayList<Bullet>();
+
     //Dalai Java - Repair fire engines at fire station
     private ArrayList<Projectile> health = new ArrayList<Projectile>();
 
@@ -628,7 +632,20 @@ public class PlayState extends State {
 
         // If the user presses the space bar, creates Projectile instance if the selected firetruck has water remaining.
         // Then adds this to the water ArrayList and removes 1 water from the firetrucks tank.
+
+        // Dalai Java - multiple water streams
         for (Firetruck firetruck : firetrucks) {
+            if (Gdx.input.isKeyPressed(Input.Keys.Q) && firetruck.isSelected() && firetruck.getCurrentWater() > 0) {
+                Bullet drop1 = new Bullet(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2),5,5,
+                        new Texture("lightblue.jpg"),(new Vector2(Gdx.input.getX(),Kroy.HEIGHT - Gdx.input.getY())), 5, firetruck.getDamage(),firetruck.getRange());
+                bullet.add(drop1);
+                if (saveData.getBoolean("effects")){
+                    waterShoot.play();
+                }
+                firetruck.updateCurrentWater(1);
+
+            }
+
             if (Gdx.input.isKeyPressed(Input.Keys.SPACE) && firetruck.isSelected() && firetruck.getCurrentWater() > 0) {
                 Projectile drop = new Projectile(new Vector2(firetruck.getPosition().x + firetruck.getWidth() / 2, firetruck.getPosition().y + firetruck.getHeight() / 2), 5, 5,
                         new Texture("lightblue.jpg"), (new Vector2(Gdx.input.getX(), Kroy.HEIGHT - Gdx.input.getY())), 5, firetruck.getDamage(), firetruck.getRange());
@@ -636,7 +653,6 @@ public class PlayState extends State {
                 if (saveData.getBoolean("effects")) {
                     waterShoot.play();
                 }
-
                 firetruck.updateCurrentWater(1);
 
             }
@@ -667,6 +683,7 @@ public class PlayState extends State {
 
         // Changes which truck is moving and calls the truckMovement() method with the selected truck as input.
         if (firetruck1.isSelected()) {
+            //LUKAS
             truckMovement(firetruck1);
         } else if (firetruck2.isSelected()) {
             truckMovement(firetruck2);
@@ -721,7 +738,30 @@ public class PlayState extends State {
         }
 
         // Updates all bullets each tick, checks if bullet collides with firetruck and then removes health from the
-       // firetruck. If a firetruck is destroyed, checks if all have been destroyed and then activates game over screen.
+        // firetruck. If a firetruck is destroyed, checks if all have been destroyed and then activates game over screen.
+
+        //Dalai Java - multiple water streams
+        for (Bullet projectile : new ArrayList<Bullet>(projectiles)) {
+            projectile.update();
+            for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
+                if (projectile.hitUnit(truck)) {
+                    truck.takeDamage(projectile.getDamage());
+                    projectiles.remove(projectile);
+                    if (truck.getCurrentHealth() < 0) {
+                        truck.setSelected(false);
+                        firetrucks.remove(truck);
+                        if (firetrucks.size() == 0) {
+                            levelLost = true;
+                            timeTaken = stopwatch.getTime();
+                        }
+                        destroyedFiretrucks.add(truck);
+                    }
+
+                }
+            }
+
+        }
+
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
@@ -731,7 +771,7 @@ public class PlayState extends State {
                     if (truck.getCurrentHealth() <= 0) {
                         truck.setSelected(false);
                         firetrucks.remove(truck);
-                        if(firetrucks.size() == 0) {
+                        if (firetrucks.size() == 0) {
                             levelLost = true;
                             timeTaken = stopwatch.getTime();
                         }
@@ -751,12 +791,12 @@ public class PlayState extends State {
                     //ASSESSMENT 3 - beings the minigame
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
                     truck.setCurrentWater(truck.getMaxWater());
+
                     //Dalai Java - Repair fire engines at fire station
                     truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
                 }
-            }
-            else {
+            } else {
                 truck.setRefilling(false);
             }
         }
@@ -765,6 +805,37 @@ public class PlayState extends State {
         // Checks if drop collides with alien/fortress and then removes health from it if so. If alien dies, removes it
         // and adds its coordinates back to the fortresses potential spawn locations. If fortress reaches 0 then
         // game win screen is called and level progress saved.
+
+        //Dalai Java - multiple water streams
+        for (Bullet drop1 : new ArrayList<Bullet>(bullet)) {
+            drop1.update();
+            if (drop1.getLength() > drop1.getMaxLength()) {
+                drop1.dispose();
+                bullet.remove(drop1);
+            }
+            for (Alien alien : new ArrayList<Alien>(aliens)) {
+                if (drop1.hitUnit(alien)) {
+                    alien.takeDamage(drop1.getDamage());
+                    bullet.remove(drop1);
+                    if (alien.getCurrentHealth() == 0) {
+                        fortress.getAlienPositions().add(alien.getPosition());
+                        alien.dispose();
+                        aliens.remove(alien);
+                        timeSinceAlienKilled = fortress.getSpawnRate();
+                    }
+                }
+            }
+            if (drop1.hitUnit(fortress)) {
+                fortress.takeDamage(drop1.getDamage());
+                if (fortress.getCurrentHealth() == 0) {
+                    levelWon = true;
+                    timeTaken = stopwatch.getTime();
+                    saveData.putBoolean(level, true);
+                    saveData.flush();
+                }
+            }
+        }
+
 
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
@@ -864,6 +935,18 @@ public class PlayState extends State {
         }
 
         // Draws updated projectile locations
+
+        //Dalai Java - multiple water streams
+        for (Bullet projectile: projectiles){
+            spriteBatch.draw(projectile.getTexture(),projectile.getPosition().x,projectile.getPosition().y,projectile.getWidth(),
+                    projectile.getHeight());
+        }
+        for(Bullet drop1: bullet){
+            spriteBatch.draw(drop1.getTexture(), drop1.getPosition().x ,drop1.getPosition().y, drop1.getWidth(),
+                    drop1.getHeight());
+        }
+
+
         for (Projectile bullet : bullets) {
             spriteBatch.draw(bullet.getTexture(), bullet.getPosition().x, bullet.getPosition().y, bullet.getWidth(),
                     bullet.getHeight());
@@ -895,6 +978,13 @@ public class PlayState extends State {
                 Kroy.HEIGHT - 920);
         ui.draw(spriteBatch, "Truck 4 Health: " + Integer.toString(firetruck4.getCurrentHealth()), 1499,
                 Kroy.HEIGHT - 920);
+
+        for (Firetruck truck: firetrucks) {
+            if (truck.getCurrentWater() < 20) {
+                spriteBatch.draw(new Texture("RefillWarning.png"), truck.getPosition().x - 20,
+                        truck.getPosition().y + 40);
+            }
+        }
 
         // If end game reached, draws level fail or level won images to the screen
         if (levelLost) {
@@ -936,8 +1026,18 @@ public class PlayState extends State {
             bullet.dispose();
         }
 
+
         for (Projectile drop : water) {
             drop.dispose();
+        }
+
+        //Dalai Java - multiple water streams
+        for (Bullet projectile: projectiles){
+            projectile.dispose();
+        }
+
+        for (Bullet drop1: bullet){
+            drop1.dispose();
         }
 
         for (Entity obstacles: obstacles) {

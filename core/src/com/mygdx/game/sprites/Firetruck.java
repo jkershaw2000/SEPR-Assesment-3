@@ -40,12 +40,16 @@ public class Firetruck extends Character {
     public void move(int direction) { // 1, 2, 3, 4 --> Left, Right, Up, Down
         float deltaTime = Gdx.graphics.getDeltaTime();
         if (direction == 2) {
+            //Move right
             setPosition(getPosition().x + getSpeed() * deltaTime, getPosition().y);
         } else if (direction == 1) {
+            //Move left
             setPosition(getPosition().x - getSpeed() * deltaTime, getPosition().y);
         } else if (direction == 3) {
+            //Move up
             setPosition(getPosition().x, getPosition().y + getSpeed() * deltaTime);
         } else if (direction == 4) {
+            //Move down
             setPosition(getPosition().x, getPosition().y - getSpeed() * deltaTime);
         }
     }

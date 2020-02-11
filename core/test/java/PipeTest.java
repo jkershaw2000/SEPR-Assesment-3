@@ -14,7 +14,6 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -65,7 +64,7 @@ public class PipeTest {
     }
 
     @Test
-    public void pipeShouldReturnTrueWhenInRange() {
+    public void pipeShouldReturnTrueWhenInRangeTest() {
         when(Gdx.input.getX()).thenReturn(50);
         when(Gdx.input.getY()).thenReturn(1030);
         Pipe p = new Pipe(new Vector2(45,45), 20, 20, mockedImg, 0, null);
@@ -73,7 +72,7 @@ public class PipeTest {
     }
 
     @Test
-    public void pipeShouldReturnFalseWhenNotInRange() {
+    public void pipeShouldReturnFalseWhenNotInRangeTest() {
         when(Gdx.input.getX()).thenReturn(50);
         when(Gdx.input.getY()).thenReturn(1030);
         Pipe p = new Pipe(new Vector2(100,100), 20, 20, mockedImg, 0, null);

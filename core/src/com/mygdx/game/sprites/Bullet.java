@@ -1,15 +1,17 @@
 package com.mygdx.game.sprites;
-
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
-
+import com.mygdx.game.states.PlayState;
 /**
- * The class which is used to create bullet and water projectiles and contains their properties.
+ * The class which is used to create multiple streams of water projectiles and contains their properties.
  *
- * @author Lucy Ivatt
+ * Class added by Dalai Java.
  */
-public class Projectile extends Entity
-{
+
+public class Bullet extends Entity {
     private Vector2 startPosition;
     private float speed;
     private Vector2 direction;
@@ -17,31 +19,35 @@ public class Projectile extends Entity
     private int damage;
     private float maxLength;
 
-    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
-                      int damage, float maxLength) {
+    public Bullet(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
+                  int damage, float maxLength) {
         super(position, width, height, texture);
         startPosition = position;
         this.speed = speed;
         this.damage = damage;
-        this.maxLength = maxLength;
+        this.maxLength =maxLength;
+
+        //Add Random variance to the bullet direction.
+        targetCoords.x *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
+        targetCoords.y *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
         this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
     }
 
-    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage) {
+    public Bullet (Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
+                   int damage) {
         super(position, width, height, texture);
         startPosition = position;
         this.speed = speed;
         this.damage = damage;
         this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
     }
-
 
     /**
      * A method which updates the bullets properties each game tick
      */
     public void update() {
-       setPosition(getPosition().x + speed * direction.x, getPosition().y + speed * direction.y);
-       setLength();
+        setPosition(getPosition().x + speed * direction.x, getPosition().y + speed * direction.y);
+        setLength();
     }
 
     /**
