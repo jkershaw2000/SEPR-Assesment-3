@@ -87,14 +87,14 @@ public class FireTruckTest {
 
     //ASSESSMENT 3
     @Test
-    public void willCollideReturnsTrueIfInRange() {
+    public void willCollideShouldReturnTrueIfInRangeTest() {
         Entity e = new Entity(new Vector2(105, 100), 1, 1, null);
         assertTrue(testFireTruck.willCollide(e, 2));
     }
 
     //ASSESSMENT 3
     @Test
-    public void willCollideReturnsFalseIfNotInRange() {
+    public void willCollideShouldReturnFalseIfNotInRangeTest() {
         Entity e = new Entity(new Vector2(100, 300), 1, 1, null);
         assertFalse(testFireTruck.willCollide(e, 3));
     }

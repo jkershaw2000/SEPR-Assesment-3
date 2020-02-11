@@ -19,6 +19,11 @@ public class EntityTest {
         testEntity.setPosition(100, 100);
         assertEquals(new Vector2(100, 100), testEntity.getPosition());
         assertEquals(new Vector2(200, 200), testEntity.getTopRight());
+        //ASSESSMENT 3
+        assertEquals(testEntity.getWidth(), 100);
+        assertEquals(testEntity.getHeight(), 100);
+        assertEquals(testEntity.getTexture(), null);
+
     }
 
     //Testing that setPosition() will allow for the boundary input of 0
