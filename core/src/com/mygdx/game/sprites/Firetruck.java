@@ -20,6 +20,7 @@ public class Firetruck extends Character {
     //Dalai Java - Repair fire engines at fire station
     private int maxHealth;
     private int currentHealth;
+    public boolean canBeDamaged;
 
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, int maxWater, boolean selected) {
@@ -31,6 +32,7 @@ public class Firetruck extends Character {
         //Dalai Java - Repair fire engines at fire station
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.canBeDamaged = true;
     }
 
     /**

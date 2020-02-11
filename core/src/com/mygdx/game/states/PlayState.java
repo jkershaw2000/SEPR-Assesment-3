@@ -765,7 +765,7 @@ public class PlayState extends State {
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
-                if (bullet.hitUnit(truck)) {
+                if (bullet.hitUnit(truck) && truck.canBeDamaged) {
                     truck.takeDamage(bullet.getDamage());
                     bullets.remove(bullet);
                     if (truck.getCurrentHealth() <= 0) {
@@ -785,6 +785,7 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
+                truck.canBeDamaged = false;
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
@@ -797,6 +798,7 @@ public class PlayState extends State {
                     System.out.println("Minigame won" + minigameWon);
                 }
             } else {
+                truck.canBeDamaged = true;
                 truck.setRefilling(false);
             }
         }
