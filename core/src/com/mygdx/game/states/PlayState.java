@@ -1135,8 +1135,8 @@ public class PlayState extends State {
         //if (timeLimit-30 < stopwatch.getTime()){
            // for(Alien alien: aliens){
                 // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
-            }
-        }
+          //  }
+        //}
     }
 
     public void setMinigameWon(Boolean won) {
