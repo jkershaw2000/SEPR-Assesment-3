@@ -32,7 +32,7 @@ public class Firetruck extends Character {
         //Dalai Java - Repair fire engines at fire station
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
-        this.canBeDamaged = true;
+        this.canBeDamaged = true; // DJ - making fire engines invulnerable when in station and vulnerable when the aren't
     }
 
     /**

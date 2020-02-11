@@ -14,6 +14,7 @@ import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
 
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -785,20 +786,23 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
-                truck.canBeDamaged = false;
+                truck.canBeDamaged = false; // DJ - making fire engines invulnerable when in station
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
                     //ASSESSMENT 3 - beings the minigame
+
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
+
                     truck.setCurrentWater(truck.getMaxWater());
 
                     //Dalai Java - Repair fire engines at fire station
                     truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
+
                 }
             } else {
-                truck.canBeDamaged = true;
+                truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
             }
         }
