@@ -7,12 +7,14 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
+
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -541,31 +543,31 @@ public class PlayState extends State {
 
                 //River - Left
                 obstacles.add(new Entity(new Vector2(33 + 7 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg")));
-                obstacles.add(new Entity(new Vector2(33 + 6 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 2 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 3 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 6 * 32), 32, 128, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 10 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 1 * 32, 212 + 12 * 32), 32, 96, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 15 * 32), 32, 256, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 23 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 24 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 25 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
+                obstacles.add(new Entity(new Vector2(33 + 6 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 2 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 3 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 6 * 32), 32, 128, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 10 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 1 * 32, 212 + 12 * 32), 32, 96, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 2 * 32, 212 + 15 * 32), 32, 256, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 3 * 32, 212 + 23 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 4 * 32, 212 + 24 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 5 * 32, 212 + 25 * 32), 32, 64, new Texture("teal.jpg")));
 
                 // River - Right
-                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 52 * 32, 212 + 2 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 6 * 32), 32, 96, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 9 * 32), 32, 128, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 56 * 32, 212 + 13 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 15 * 32), 32, 196, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 21 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 24 * 32), 64, 32, new Texture("teal.jpg"))); // Obstacle 31
-                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 25 * 32), 32, 32, new Texture("teal.jpg"))); // Obstacle 31
+                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 0 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 1 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 52 * 32, 212 + 2 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 4 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 6 * 32), 32, 96, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 9 * 32), 32, 128, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 56 * 32, 212 + 13 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 55 * 32, 212 + 15 * 32), 32, 196, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 54 * 32, 212 + 21 * 32), 32, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 53 * 32, 212 + 22 * 32), 32, 64, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 51 * 32, 212 + 24 * 32), 64, 32, new Texture("teal.jpg")));
+                obstacles.add(new Entity(new Vector2(33 + 50 * 32, 212 + 25 * 32), 32, 32, new Texture("teal.jpg")));
 
 
             }
@@ -700,6 +702,7 @@ public class PlayState extends State {
         }
 
         // Changes which truck is moving and calls the truckMovement() method with the selected truck as input.
+        /**
         if (firetruck1.isSelected()) {
             //LUKAS
             truckMovement(firetruck1);
@@ -709,6 +712,12 @@ public class PlayState extends State {
             truckMovement(firetruck3);
         } else if (firetruck4.isSelected()){
             truckMovement(firetruck4);
+        }
+         **/
+        for(Firetruck truck : firetrucks){
+            if(truck.isSelected()) {
+                truck.truckMovement(obstacles);
+            }
         }
 
         // Checks if user presses ENTER when game is over and takes them back to level select.
@@ -791,7 +800,7 @@ public class PlayState extends State {
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
-                if (bullet.hitUnit(truck)) {
+                if (bullet.hitUnit(truck) && truck.canBeDamaged) {
                     truck.takeDamage(bullet.getDamage());
                     bullets.remove(bullet);
                     if (truck.getCurrentHealth() <= 0) {
@@ -811,18 +820,23 @@ public class PlayState extends State {
         for (Firetruck truck : firetrucks) {
             if (!(truck.getTopRight().y < fireStation.getPosition().y || truck.getPosition().y > fireStation.getTopRight().y ||
                     truck.getTopRight().x < fireStation.getPosition().x || truck.getPosition().x > fireStation.getTopRight().x)) {
+                truck.canBeDamaged = false; // DJ - making fire engines invulnerable when in station
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
                     minigameWon = false;
                     //ASSESSMENT 3 - beings the minigame
+
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
+
                     truck.setCurrentWater(truck.getMaxWater());
 
                     //Dalai Java - Repair fire engines at fire station
                     truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
+
                 }
             } else {
+                truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
             }
         }
@@ -941,8 +955,14 @@ public class PlayState extends State {
 
         // Draws updated firetrucks and overhead water tank statistics.
         for (Firetruck truck : firetrucks) {
-            spriteBatch.draw(truck.getTexture(), truck.getPosition().x, truck.getPosition().y, truck.getWidth(),
-                    truck.getHeight());
+            // Dalai Java - changed drawing to make rotation easier (do not need a unique texture for a rotation)
+            Sprite toDraw = new Sprite(truck.getTexture());
+            toDraw.setPosition(truck.getPosition().x, truck.getPosition().y);
+            toDraw.setRegionHeight(truck.getHeight());
+            toDraw.setRegionWidth(truck.getWidth());
+            toDraw.setRotation(truck.truckDirection());
+            toDraw.draw(spriteBatch);
+            // DJ --------------------------------------------------------------------------------------
             healthBars.draw(spriteBatch, "Water: " + truck.getCurrentWater(), truck.getPosition().x,
                     truck.getPosition().y + truck.getHeight() + 10);
         }
@@ -1079,6 +1099,7 @@ public class PlayState extends State {
      * truck is currently selected.
      * @param truck the truck which is currently selected
      */
+    /**
     public void truckMovement(Firetruck truck) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             truck.setTexture(new Texture("truck.png"));
@@ -1143,6 +1164,7 @@ public class PlayState extends State {
             }
         }
     }
+     **/
 
     /**
      * Used to spawn the Aliens around the fortress by accessing the spawnRate and alienPositions stored within

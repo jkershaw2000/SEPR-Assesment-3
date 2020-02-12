@@ -30,7 +30,12 @@ public class Stopwatch {
      */
     public void update(){
         time += (Gdx.graphics.getDeltaTime());
-        timeString = String.format("%.0f", timeLimit - time);
+
+        if((timeLimit - time) > 0){
+            timeString = String.format("%.0f", timeLimit - time);
+        }else{
+            timeString = String.format("%.0f", 0.0);
+        }
     }
 
     /**

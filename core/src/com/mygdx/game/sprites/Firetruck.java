@@ -1,8 +1,11 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.ArrayList;
 
 /**
  * The class which creates a firetruck object to be controlled by the user within the PlayState.
@@ -20,6 +23,8 @@ public class Firetruck extends Character {
     //Dalai Java - Repair fire engines at fire station
     private int maxHealth;
     private int currentHealth;
+    public boolean canBeDamaged;
+    private float prevDir = 0;
 
     public Firetruck(Vector2 position, int width, int height, Texture texture, int maxHealth, int range, Unit target,
                      int speed, int dps, int maxWater, boolean selected) {
@@ -31,6 +36,7 @@ public class Firetruck extends Character {
         //Dalai Java - Repair fire engines at fire station
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
+        this.canBeDamaged = true; // DJ - making fire engines invulnerable when in station and vulnerable when the aren't
     }
 
     /**
@@ -147,6 +153,108 @@ public class Firetruck extends Character {
         }
         this.currentHealth -=  healthUsed;
     }
+
+
+    /**
+     * @author Dalai Java
+     * @return float which is the direction the fire truck should point
+     */
+    public float truckDirection(){
+        if(this.isSelected()) {
+            if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+                prevDir = 315f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.W) && Gdx.input.isKeyPressed(Input.Keys.A)) {
+                prevDir = 45f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.A) && Gdx.input.isKeyPressed(Input.Keys.S)) {
+                prevDir = 90f+45f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S) && Gdx.input.isKeyPressed(Input.Keys.D)) {
+                prevDir = 180f+45f;
+            }else if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+                prevDir = 0f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+                prevDir = 90f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+                prevDir = 180f;
+            } else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+                prevDir = 270f;
+            }
+        }
+        return prevDir;
+    }
+
+    /**
+     * moved movement handling to the Firetruck class
+     * @author Dalai Java
+     * @param obstacles requires list of obstacles to handle collisions
+     */
+    public void truckMovement(ArrayList<Entity> obstacles) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+
+            boolean obstacleCollision = false;
+            if (this.getPosition().y >= 1043 - this.getHeight()) {
+                obstacleCollision = true;
+            }
+            for (Entity obstacle : obstacles) {
+                if (this.willCollide(obstacle, 3)) {
+                    obstacleCollision = true;
+                }
+            }
+            if (!obstacleCollision) {
+                this.move(3);
+            }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            boolean obstacleCollision = false;
+            if (this.getPosition().y <= 212) {
+                obstacleCollision = true;
+            }
+            for (Entity obstacle : obstacles) {
+                if (this.willCollide(obstacle, 4)) {
+                    obstacleCollision = true;
+                }
+            }
+            if (!obstacleCollision) {
+                this.move(4);
+            }
+
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            boolean obstacleCollision = false;
+            if (this.getPosition().x <= 33) {
+                obstacleCollision = true;
+            }
+            for (Entity obstacle : obstacles) {
+                if (this.willCollide(obstacle, 1)) {
+                    obstacleCollision = true;
+                }
+            }
+            if (!obstacleCollision) {
+                this.move(1);
+            }
+
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+
+            boolean obstacleCollision = false;
+            if (this.getPosition().x >= 1888 - this.getWidth()) {
+                obstacleCollision = true;
+            }
+            for (Entity obstacle : obstacles) {
+                if (this.willCollide(obstacle, 2)) {
+                    obstacleCollision = true;
+                }
+            }
+            if (!obstacleCollision) {
+                this.move(2);
+            }
+
+        }
+    }
+
+
+
 
     public void setSelected(boolean selected) {
         this.selected = selected;
