@@ -38,6 +38,13 @@ public class LevelSelectState extends State{
         super(gameStateManager);
         background = new Texture("LevelSelectBackground.png");
         saveData = Gdx.app.getPreferences("Kroy");
+
+        saveData.putBoolean("1", true);
+        saveData.putBoolean("2", true);
+        saveData.putBoolean("3", true);
+        saveData.putBoolean("4", true);
+        saveData.putBoolean("5", true);
+
         back = new Button(new Texture("backbutton2.png"), new Texture("backbutton1.png"),
                 100, 100, new Vector2(30, 960), false, false);
 

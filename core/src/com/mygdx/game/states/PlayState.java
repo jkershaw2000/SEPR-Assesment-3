@@ -605,17 +605,17 @@ public class PlayState extends State {
         firetrucks.add(firetruck1);
         firetrucks.add(firetruck2);
 
-        // Code added by Dalai Java - Adds firetrucks to arraylist
+        // Code added by Dalai Java - Adds 3rd and 4th firetrucks to ArrayList
         firetrucks.add(firetruck3);
         firetrucks.add(firetruck4);
 
         // Code added by Dalia Java - adds fire station locations to an array list
         fireStationPositions.add(new Vector2(33 + 8 * 32, 212 + 4 * 32));
         fireStationPositions.add(new Vector2(33 + 1 * 32, 212 + 4 * 32));
-        fireStationPositions.add(new Vector2(33 + 27*32, 212 + 0 * 32));
-        fireStationPositions.add(new Vector2((33 + 48 * 32),(212 + 21 * 32)));
-        fireStationPositions.add(new Vector2(33 +  2 * 32, 212 + 12 * 32));
-        fireStationPositions.add(new Vector2(33 + 21 * 32, 212 + 0 * 32));
+        fireStationPositions.add(new Vector2(33 + 27 * 32,212 + 0 * 32));
+        fireStationPositions.add(new Vector2(33 + 48 * 32,212 + 21 * 32));
+        fireStationPositions.add(new Vector2(33 + 2 * 32,212 + 12 * 32));
+        fireStationPositions.add(new Vector2(33 + 21 * 32,212 + 0 * 32));
 
         stopwatch = new Stopwatch(timeLimit);
 
