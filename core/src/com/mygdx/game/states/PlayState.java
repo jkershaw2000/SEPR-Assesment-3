@@ -61,6 +61,9 @@ public class PlayState extends State {
     private ArrayList<Projectile> bullets = new ArrayList<Projectile>();
     private ArrayList<Projectile> water = new ArrayList<Projectile>();
 
+    // Dalia Java - array list of fire stations position
+    private ArrayList<Vector2> fireStationPositions = new ArrayList<Vector2>();
+
     //Dalai Java - multiple water streams
     private  ArrayList<Bullet> bullet = new ArrayList<Bullet>();
     private ArrayList<Bullet> projectiles = new ArrayList<Bullet>();
@@ -175,8 +178,8 @@ public class PlayState extends State {
                     new Texture("teal.jpg"))); }
 
             // Level 1 Firestation
-            fireStation = new Entity(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128,
-                    new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2(33 + 8 * 32, 212 + 4 * 32), 128, 128,
+                    new Texture("teal.jpg"), 1000);
 
             // Level 1 Fortress
             fortress = new Fortress(new Vector2(33 + 24 * 32, 212 + 22 * 32), 6 * 32, 4 * 32,
@@ -256,11 +259,12 @@ public class PlayState extends State {
                     new Texture("teal.jpg")));}
 
             // Level 2 Fire Station
-            fireStation = new Entity(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
-                    new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2(33 + 1 * 32, 212 + 4 * 32), 64, 128,
+                    new Texture("teal.jpg"), 1000);
 
             // Level 2 Fortress
-            fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32, new Texture("grey.png"),
+            fortress = new Fortress(new Vector2(33 + 36 * 32, 212 + 19 * 32), 4 * 32, 4 * 32,
+                    new Texture("grey.png"),
                     12500, 4, 2);
         }
 
@@ -325,10 +329,12 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(33 + 40 * 32, 212 + 16 * 32), 32, 32, new Texture("teal.jpg"))); }
 
             // Level 3 Fire Station
-            fireStation = new Entity(new Vector2(33 + 27*32, 212), 96, 128, new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2(33 + 27*32, 212), 96, 128,
+                    new Texture("teal.jpg"), 1000);
 
             // Level 3 Fortress
-            fortress = new Fortress(new Vector2(33 + 24*32, 212 + 32*21), 224, 96, new Texture("grey.png"),
+            fortress = new Fortress(new Vector2(33 + 24*32, 212 + 32*21), 224, 96,
+                    new Texture("grey.png"),
                     15000, 2, 3);
         }
 
@@ -407,10 +413,11 @@ public class PlayState extends State {
                 }
             }
 
-            fireStation = new Entity(new Vector2((33 + (48 * 32)), (212 + (21 * 32))), 256, 128,  new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2((33 + (48 * 32)), (212 + (21 * 32))), 256, 128,
+                    new Texture("teal.jpg"), 1000);
 
-            fortress = new Fortress(new Vector2((33 + (4 * 32)),(212 + (19 * 32))), 300, 160, new Texture("grey.png"),
-                    20000, 6, 4);
+            fortress = new Fortress(new Vector2((33 + (4 * 32)),(212 + (19 * 32))), 300, 160,
+                    new Texture("grey.png"), 20000, 6, 4);
 
             timeLimit = 45;
             map = new Texture("level4background.png");
@@ -476,14 +483,16 @@ public class PlayState extends State {
             }
 
             // Placeholder values for position
-            fireStation = new Entity(new Vector2(33 + 2 * 32, 212 + 12 * 32), 160, 256,  new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2(33 + 2 * 32, 212 + 12 * 32), 160, 256,
+                    new Texture("teal.jpg"),1000);
 
-            fortress = new Fortress(new Vector2(33 +  53 * 32, 212 + 11 * 32), 160, 192, new Texture("grey.png"),
-                    20000, 6, 5);
+            fortress = new Fortress(new Vector2(33 +  53 * 32, 212 + 11 * 32), 160, 192,
+                    new Texture("grey.png"), 20000, 6, 5);
 
             timeLimit = 45;
             map = new Texture("level5background.png");
         }
+
 
         else if (levelNumber == 6) {
             firetruck1pos = new Vector2(33 +  21 * 32, 212 + 1 * 32);
@@ -561,10 +570,11 @@ public class PlayState extends State {
 
             }
             // Placeholder values for position
-            fireStation = new Entity(new Vector2(33 + 21 * 32, 212 + 0 * 32), 320, 96,  new Texture("teal.jpg"));
+            fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 320, 96,
+                    new Texture("teal.jpg"), 1000);
             // Placeholder values for position
-            fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96, new Texture("grey.png"),
-                    20000, 6, 4);
+            fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96,
+                    new Texture("grey.png"), 20000, 6, 4);
 
             timeLimit = 45;
             map = new Texture("level6background.png");
@@ -596,6 +606,14 @@ public class PlayState extends State {
         // Code added by Dalai Java - Adds firetrucks to arraylist
         firetrucks.add(firetruck3);
         firetrucks.add(firetruck4);
+
+        // Code added by Dalia Java - adds fire station locations to an array list
+        fireStationPositions.add(new Vector2(33 + 8 * 32, 212 + 4 * 32));
+        fireStationPositions.add(new Vector2(33 + 1 * 32, 212 + 4 * 32));
+        fireStationPositions.add(new Vector2(33 + 27*32, 212 + 0 * 32));
+        fireStationPositions.add(new Vector2((33 + 48 * 32),(212 + 21 * 32)));
+        fireStationPositions.add(new Vector2(33 +  2 * 32, 212 + 12 * 32));
+        fireStationPositions.add(new Vector2(33 + 21 * 32, 212 + 0 * 32));
 
         stopwatch = new Stopwatch(timeLimit);
 
@@ -713,18 +731,26 @@ public class PlayState extends State {
         // Updates aliens and attacks firetruck if there is a firetruck in range and the Aliens attack cooldown is over.
         // Adds the created bullet projectile to the ArrayList bullets
         for (Alien alien : aliens) {
-            alien.update();
-            alien.truckInRange(firetrucks);
-            if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
-                if (alien.hasTarget()) {
-                    Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                            new Texture("red.png"), (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage());
-                    bullets.add(bullet);
-                    alien.resetTimeSinceAttack();
+
+            // Assesment 3 - After half the game time, the alien will begin to move towards the fire station.
+            if (timeLimit - stopwatch.getTime() > timeLimit / 2) {
+                // will begin to move towards the fire station
+                alien.update();
+                alien.truckInRange(firetrucks);
+                if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
+                    if (alien.hasTarget()) {
+                        Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
+                                new Texture("red.png"), (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage());
+                        bullets.add(bullet);
+                        alien.resetTimeSinceAttack();
+                    }
                 }
+                alien.updateTimeSinceAttack(deltaTime);
+            } else {
+                alien.updateToFireStation(fireStationPositions.get(((Integer.parseInt(level)) - 1)));
             }
-            alien.updateTimeSinceAttack(deltaTime);
         }
+
         alienSpawnCountdown -= deltaTime;
         timeSinceAlienKilled -= deltaTime;
 
@@ -1126,20 +1152,67 @@ public class PlayState extends State {
         Random rand = new Random();
         if (fortress.getAlienPositions().size() > 0) {
             Vector2 coordinate = fortress.getAlienPositions().get(rand.nextInt(fortress.getAlienPositions().size()));
-            Alien alien = new Alien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
-                    250, null, 1, 17 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                    new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x-300, coordinate.y)}, 0.5f);
-            aliens.add(alien);
+
+            // Allows for unique spec aliens on each level - Assessment 3
+            if (this.level.equals("1")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        250, null, 1, 5 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 3f));
+            }
+            if (this.level.equals("2")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        250, null, 1, 5 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 2f));
+            }
+            if (this.level.equals("3")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        300, null, 7, 3 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 1f));
+            }
+            if (level.equals("4")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        250, null, 1, 13 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.75f));
+            }
+            if (level.equals("5")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        250, null, 5, 19 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.5f));
+            }
+            if (level.equals("6")) {
+                aliens.add(createAlien(coordinate, 32, 32, new Texture("alien.gif"), 30 + rand.nextInt(60),
+                        250, null, 3, 25 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.2f));
+            }
+
             fortress.getAlienPositions().remove(coordinate);
+            //if (timeLimit-30 < stopwatch.getTime()){
+            // for(Alien alien: aliens){
+            // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
+            //  }
+            //}
         }
-        //if (timeLimit-30 < stopwatch.getTime()){
-           // for(Alien alien: aliens){
-                // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
-          //  }
-        //}
     }
 
-    public void setMinigameWon(Boolean won) {
-        this.minigameWon = won;
+    /**
+     * Method that allows for easy creation of an Alien entity.
+     * @param coordinate
+     * @param width
+     * @param height
+     * @param texture
+     * @param maxHealth
+     * @param range
+     * @param target
+     * @param speed
+     * @param dps
+     * @param waypoints
+     * @param attackCooldown
+     * @return
+     */
+    private Alien createAlien(Vector2 coordinate, int width, int height, Texture texture, int maxHealth, int range,
+                              Unit target, int speed, int dps, Vector2[] waypoints, float attackCooldown){
+        return (new Alien(coordinate, width, height, texture, maxHealth,
+                range, target, speed, dps, waypoints, attackCooldown));
     }
+    public void setMinigameWon(Boolean won) {this.minigameWon = won;}
 }

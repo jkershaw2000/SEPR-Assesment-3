@@ -37,6 +37,11 @@ public class Alien extends Character {
         setPosition(newPos.x, newPos.y);
     }
 
+    public void updateToFireStation(Vector2 position){
+        Vector2 newPos = moveAlongGrid(position);
+        setPosition(newPos.x, newPos.y);
+    }
+
     /**
      * A method which checks if the alien is as its next waypoint, if so it will set the target waypoint to the next
      * in the array. If the alien is at the end of the array, it will return to the starting waypoint.
