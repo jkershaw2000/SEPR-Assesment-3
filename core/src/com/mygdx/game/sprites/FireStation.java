@@ -8,6 +8,8 @@ public class FireStation extends Unit{
     public FireStation(Vector2 position, int width, int height, Texture texture, int maxHealth){
         super(position, width, height, texture, maxHealth);
 
+
+
     }
 
 }

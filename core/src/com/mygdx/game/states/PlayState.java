@@ -745,7 +745,7 @@ public class PlayState extends State {
             if (timeLimit - stopwatch.getTime() > timeLimit / 2) {
                 // will begin to move towards the fire station
                 alien.update();
-                alien.truckInRange(firetrucks);
+                alien.truckInRange(firetrucks, (FireStation)fireStation);
                 if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
                     if (alien.hasTarget()) {
                         Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,

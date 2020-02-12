@@ -81,7 +81,7 @@ public class Alien extends Character {
      * The method which checks if a firetruck is in range and sets the aliens target accordingly
      * @param firetrucks the ArrayList containing the active firetrucks in the level
      */
-    public void truckInRange(ArrayList<Firetruck> firetrucks) {
+    public void truckInRange(ArrayList<Firetruck> firetrucks,FireStation station) {
         if (this.hasTarget() && getTarget().getCurrentHealth() == 0) {
             setTarget(null);
         }
@@ -98,6 +98,18 @@ public class Alien extends Character {
                 }
             }
         }
+        if (getTopRight().y + getRange() < station.getPosition().y || getPosition().y - getRange() > station.getTopRight().y ||
+                getTopRight().x + getRange() < station.getPosition().x || getPosition().x - getRange() > station.getTopRight().x) {
+            if (getTarget() == station) {
+                setTarget(null);
+            }
+        }
+        else {
+            if (getTarget() == null || station.getCurrentHealth() < getTarget().getCurrentHealth()) {
+                setTarget(station);
+            }
+        }
+        
     }
 
     public boolean hasTarget() {
