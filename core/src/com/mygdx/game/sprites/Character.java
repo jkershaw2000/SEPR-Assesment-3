@@ -45,4 +45,10 @@ public abstract class Character extends Unit {
     public int getRange() {
         return range;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+    }
 }

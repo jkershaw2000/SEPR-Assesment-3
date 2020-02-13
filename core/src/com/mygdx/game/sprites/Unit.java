@@ -75,4 +75,10 @@ public abstract class Unit extends Entity {
             setCurrentHealth(newHealth);
         }
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+
+    }
 }

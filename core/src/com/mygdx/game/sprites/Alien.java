@@ -143,6 +143,11 @@ public class Alien extends Character {
     public float getAttackCooldown() {
         return attackCooldown;
     }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+    }
 }
 
 

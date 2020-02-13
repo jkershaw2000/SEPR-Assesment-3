@@ -60,4 +60,6 @@ public class Entity {
     public Vector2 getTopRight() {
         return topRight;
     }
+
+
 }

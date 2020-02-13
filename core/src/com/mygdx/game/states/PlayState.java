@@ -14,6 +14,7 @@ import com.mygdx.game.Kroy;
 import com.mygdx.game.misc.Button;
 import com.mygdx.game.misc.Stopwatch;
 import com.mygdx.game.sprites.*;
+import org.graalvm.compiler.lir.amd64.vector.AMD64VectorMove;
 
 
 import java.util.ArrayList;
@@ -1011,6 +1012,16 @@ public class PlayState extends State {
         quitLevel.dispose();
         quitGame.dispose();
         waterShoot.dispose();
+        ui.dispose();
+        healthBars.dispose();
+
+        for(Projectile water : water){
+            water.dispose();
+        }
+
+        for(Projectile projectile : bullets){
+            projectile.dispose();
+        }
 
         for (Firetruck firetruck : firetrucks) {
             firetruck.dispose();
@@ -1040,6 +1051,7 @@ public class PlayState extends State {
 
         fireStation.dispose();
         fortress.dispose();
+
     }
 
     /**
