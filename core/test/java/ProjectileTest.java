@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class unitForProjectile extends Unit {
@@ -43,7 +44,7 @@ public class ProjectileTest {
     public void initialise(){
 
         projectile = new Projectile(new Vector2(100, 100), 10, 10, null,
-                new Vector2(200, 200), 10.0f, 10, 10);
+                new Vector2(200, 200), 10.0f, 10, 10, "Straight");
 
     }
 
@@ -63,7 +64,7 @@ public class ProjectileTest {
     @Test
     public void testSevenParameterConstructorWorksAsExpected() {
         Projectile p = new Projectile(new Vector2(100, 100), 10, 10, null,
-                new Vector2(200, 200), 10.0f, 10);
+                new Vector2(200, 200), 10.0f, 10, "Straight");
         Assertions.assertEquals(p.getDamage(), 10);
         Assertions.assertEquals(p.getSpeed(), 10.0f);
         Assertions.assertEquals(p.getDirection(), new Vector2(100, 100).nor());
@@ -75,6 +76,15 @@ public class ProjectileTest {
         projectile.setLength();
         System.out.println(projectile.getLength());
         assertEquals(10.0, projectile.getLength());
+    }
+
+    //ASSESSMENT 3
+    @Test
+    public void randomWaterStreamsShouldInitialiseWithinRangeTest() {
+        Projectile p = new Projectile(new Vector2(100, 100), 10, 10, null,
+                new Vector2(200, 200), 10.0f, 10, 10, "Random");
+        assertTrue(p.getDirection().x > -100 && p.getDirection().x <= 310);
+        assertTrue(p.getDirection().y > -100 && p.getDirection().y <= 310);
     }
 
     @Parameters

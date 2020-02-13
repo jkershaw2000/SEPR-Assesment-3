@@ -42,7 +42,7 @@ public class Projectile extends Entity
         this.speed = speed;
         this.damage = damage;
 
-        if (type == "Straight") {
+        if (type == "Random") {
             //Add Random variance to the bullet direction.
             targetCoords.x *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
             targetCoords.y *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
