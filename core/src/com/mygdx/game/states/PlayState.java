@@ -27,6 +27,8 @@ import java.util.Random;
  */
 
 public class PlayState extends State {
+    //Dalai Java - explosion
+    ArrayList<Explosion> explosions;
 
     private final float GAME_WIDTH = 1856;
     private final float GAME_HEIGHT = 832;
@@ -83,6 +85,9 @@ public class PlayState extends State {
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
+
+        //Dalai Java - explosion
+        explosions = new ArrayList<Explosion>();
 
         background = new Texture("LevelProportions.png");
 
@@ -650,7 +655,7 @@ public class PlayState extends State {
             quitLevel.setActive(false);
         }
 
-        // If the user presses the space bar, creates Projectile instance if the selected firetruck has water remaining.
+        // If the user presses the space bar or Q, creates Projectile instance if the selected firetruck has water remaining.
         // Then adds this to the water ArrayList and removes 1 water from the firetrucks tank.
 
         // Dalai Java - multiple water streams
@@ -732,6 +737,16 @@ public class PlayState extends State {
      */
     @Override
     public void update(float deltaTime) {
+
+        // Dalai Java - explosion
+        ArrayList<Explosion> explosionsToRemove = new ArrayList<Explosion>();
+        for (Explosion explosion: explosions){
+            explosion.update(deltaTime);
+            if (explosion.remove)
+                explosionsToRemove.add(explosion);
+        }
+        explosions.removeAll(explosionsToRemove);
+
 
         // Calls input handler and updates timer each tick of the game.
         handleInput();
@@ -861,6 +876,10 @@ public class PlayState extends State {
                         fortress.getAlienPositions().add(alien.getPosition());
                         alien.dispose();
                         aliens.remove(alien);
+
+                        // Dalai Java - explosion
+                        explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
+
                         timeSinceAlienKilled = fortress.getSpawnRate();
                     }
                 }
@@ -891,6 +910,10 @@ public class PlayState extends State {
                         fortress.getAlienPositions().add(alien.getPosition());
                         alien.dispose();
                         aliens.remove(alien);
+
+                        // Dalai Java - explosion
+                        explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
+
                         timeSinceAlienKilled = fortress.getSpawnRate();
                     }
                 }
@@ -1041,6 +1064,11 @@ public class PlayState extends State {
         if (levelWon & !levelLost) {
             spriteBatch.draw(new Texture("LevelWon.png"), 0, 0);
             Kroy.INTRO.setPitch(Kroy.ID, 1f);
+        }
+
+        // Dalai Java - explosion
+        for (Explosion explosion: explosions){
+            explosion.render(spriteBatch);
         }
         spriteBatch.end();
     }
