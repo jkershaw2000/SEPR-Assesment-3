@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class Explosion {
     public static final float FRAME_LENGTH = 0.01f;
     public static final int OFFSET = 16;
-    public static final int SIZE = 45;
+    public static final int SIZE = 30;
     private static Animation anim = null;
     float x, y;
     float statetime;
@@ -26,7 +26,7 @@ public class Explosion {
         statetime = 0;
 
         if (anim == null){
-            anim = new Animation(FRAME_LENGTH, TextureRegion.split(new Texture("explosion.png"), SIZE, SIZE)[0]);
+            anim = new Animation(FRAME_LENGTH, TextureRegion.split(new Texture("animation.png"), SIZE, SIZE)[0]);
         }
     }
 
