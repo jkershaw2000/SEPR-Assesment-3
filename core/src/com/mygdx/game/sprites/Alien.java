@@ -37,6 +37,11 @@ public class Alien extends Character {
         setPosition(newPos.x, newPos.y);
     }
 
+    //ASSESSMENT 3
+    /**
+     * Stops its current waypoint loop and moves towards a given position
+     * @param position The position to move towards
+     */
     public void updateToFireStation(Vector2 position){
         Vector2 newPos = moveAlongGrid(position);
         setPosition(newPos.x, newPos.y);

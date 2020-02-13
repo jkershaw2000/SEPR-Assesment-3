@@ -1,5 +1,6 @@
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Alien;
+import com.mygdx.game.sprites.FireStation;
 import com.mygdx.game.sprites.Firetruck;
 import com.mygdx.game.sprites.Unit;
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,9 @@ public class AlienTest {
     Alien wayPointAlien = new Alien(new Vector2(0, 0), 100, 100, null, 100,
             10, null, 5, 5, new Vector2[]{new Vector2(100, 100), new Vector2(300, 300)}, 10.0f);
 
+    //ASSESSMENT 3
+    FireStation s = new FireStation(new Vector2(1,1), 1,1,null,10);
+
     //ASSESSMENT 3 - Test basic constructor functionality
     @Test
     public void constructorsShouldSetCorrectParametersToValues() {
@@ -39,7 +43,7 @@ public class AlienTest {
         ArrayList<Firetruck> firetrucks = new ArrayList<>();
         firetrucks.add(truckMock);
 
-        testAlien.truckInRange(firetrucks);
+        testAlien.truckInRange(firetrucks, s);
         assertEquals(truckMock, testAlien.getTarget());
     }
 
@@ -53,7 +57,7 @@ public class AlienTest {
         ArrayList<Firetruck> firetrucks = new ArrayList<>();
         firetrucks.add(truckMock);
 
-        testAlien.truckInRange(firetrucks);
+        testAlien.truckInRange(firetrucks, s);
         assertEquals(null, testAlien.getTarget());
     }
 
@@ -67,7 +71,7 @@ public class AlienTest {
 
         testAlien.setTarget(unitMock);
 
-        testAlien.truckInRange(firetrucks);
+        testAlien.truckInRange(firetrucks, s);
         assertEquals(null, testAlien.getTarget());
     }
 
@@ -100,6 +104,18 @@ public class AlienTest {
         wayPointAlien.update();
         wayPointAlien.update();
         assertEquals(wayPointAlien.getCurrentIndex(), 1);
+    }
+
+    @Test
+    public void alienShouldMoveTowardsFireStationAlongXAxis() {
+        wayPointAlien.updateToFireStation(new Vector2(100,0));
+        assertEquals(wayPointAlien.getPosition(), new Vector2(5,0));
+    }
+
+    @Test
+    public void alienShouldMoveTowardsFireStationAlongYAxis() {
+        wayPointAlien.updateToFireStation(new Vector2(0,100));
+        assertEquals(wayPointAlien.getPosition(), new Vector2(0,5));
     }
 
 }
