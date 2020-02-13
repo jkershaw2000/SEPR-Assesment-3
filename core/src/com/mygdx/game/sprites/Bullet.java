@@ -33,15 +33,6 @@ public class Bullet extends Entity {
         this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
     }
 
-    public Bullet (Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
-                   int damage) {
-        super(position, width, height, texture);
-        startPosition = position;
-        this.speed = speed;
-        this.damage = damage;
-        this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
-    }
-
     /**
      * A method which updates the bullets properties each game tick
      */

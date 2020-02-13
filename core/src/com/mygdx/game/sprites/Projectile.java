@@ -18,21 +18,40 @@ public class Projectile extends Entity
     private float maxLength;
 
     public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed,
-                      int damage, float maxLength) {
+                      int damage, float maxLength, String type) {
         super(position, width, height, texture);
         startPosition = position;
         this.speed = speed;
         this.damage = damage;
         this.maxLength = maxLength;
-        this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+        if (type == "Random") {
+            //Add Random variance to the bullet direction.
+            targetCoords.x *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
+            targetCoords.y *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
+            this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+        }
+        else {
+            this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+        }
     }
 
-    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage) {
+    public Projectile(Vector2 position, int width, int height, Texture texture, Vector2 targetCoords, float speed, int damage,
+                      String type) {
         super(position, width, height, texture);
         startPosition = position;
         this.speed = speed;
         this.damage = damage;
-        this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+
+        if (type == "Straight") {
+            //Add Random variance to the bullet direction.
+            targetCoords.x *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
+            targetCoords.y *= Math.random()* (((1.05 - 0.95) + 1) + 0.95);
+            this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+        }
+        else {
+            this.direction = new Vector2(targetCoords.x - position.x,targetCoords.y - position.y).nor();
+        }
+
     }
 
 
