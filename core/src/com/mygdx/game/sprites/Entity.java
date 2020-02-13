@@ -26,6 +26,7 @@ public class Entity {
     }
 
     public void dispose() {
+        System.out.println("Texture disposed");
         texture.dispose();
     }
 

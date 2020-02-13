@@ -49,6 +49,5 @@ public abstract class Character extends Unit {
     @Override
     public void dispose() {
         super.dispose();
-
     }
 }
