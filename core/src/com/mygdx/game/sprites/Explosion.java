@@ -12,9 +12,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
  */
 
 public class Explosion {
-    public static final float FRAME_LENGTH = 0.01f; // the length of every frame
+    public static final float FRAME_LENGTH = 0.01f; // the length of frame
     public static final int OFFSET = 16;
-    public static final int SIZE = 30; // the size of every frame
+    public static final int SIZE = 40; // the size of frame
     private static Animation anim = null;
     float x, y;
     float statetime;

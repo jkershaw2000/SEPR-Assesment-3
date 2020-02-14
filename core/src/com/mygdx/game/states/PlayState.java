@@ -816,6 +816,10 @@ public class PlayState extends State {
                     if (truck.getCurrentHealth() <= 0) {
                         truck.setSelected(false);
                         firetrucks.remove(truck);
+
+                        // Dalai Java - Firetruck explosion
+                        explosions.add(new Explosion(truck.getPosition().x, truck.getPosition().y));
+
                         if (firetrucks.size() == 0) {
                             levelLost = true;
                             timeTaken = stopwatch.getTime();
@@ -871,7 +875,7 @@ public class PlayState extends State {
                         alien.dispose();
                         aliens.remove(alien);
 
-                        // Dalai Java - explosion
+                        // Dalai Java - Alien explosion
                         explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
 
                         timeSinceAlienKilled = fortress.getSpawnRate();
@@ -880,6 +884,14 @@ public class PlayState extends State {
             }
             if (drop.hitUnit(fortress)) {
                 fortress.takeDamage(drop.getDamage());
+
+                // Dalai Java - Fortress damage explosion
+                explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 60, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 100, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 180, fortress.getPosition().y));
+
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
                     timeTaken = stopwatch.getTime();
