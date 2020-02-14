@@ -605,22 +605,22 @@ public class PlayState extends State {
         }
 
 
-        firetruck1 = new Firetruck(firetruck1pos, 25, 25,
+        firetruck1 = new Firetruck(firetruck1pos, 32, 32,
                 truckTexture, 100, 200,
                 null, 100, 2,  175,
                 true);
 
-        firetruck2 = new Firetruck(firetruck2pos, 25, 25,
+        firetruck2 = new Firetruck(firetruck2pos, 32, 32,
                 truckTexture, 50, 200,
                 null, 200, 2,  100,
                 false);
 
         // Code added by Dalai Java - Creates the remaining fire engines and adds to map
-        firetruck3 = new Firetruck(firetruck3pos, 25,25,
+        firetruck3 = new Firetruck(firetruck3pos, 32,32,
                     truckTexture, 75, 200,
                     null, 150, 5, 75, false);
 
-        firetruck4 = new Firetruck(firetruck4pos, 25,25,
+        firetruck4 = new Firetruck(firetruck4pos, 32,32,
                 truckTexture, 250, 250,
                 null, 50, 3, 125, false);
 
