@@ -1,17 +1,20 @@
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.sprites.Entity;
 import com.mygdx.game.sprites.Firetruck;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
+import org.junit.jupiter.params.ParameterizedTest;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -19,11 +22,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest({Graphics.class})
+@PrepareForTest({Graphics.class, Input.class})
 public class FireTruckTest {
-    private Entity instance;
-    private boolean expected;
-
 
     //Instance of entity class to test methods on
     Entity testEntity = new Entity(new Vector2(200, 200), 100, 100, null);
@@ -36,6 +36,7 @@ public class FireTruckTest {
     @Before
     public void setup() {
         Gdx.graphics = PowerMockito.mock(Graphics.class);
+        Gdx.input = PowerMockito.mock(Input.class);
         lenient().when(Gdx.graphics.getDeltaTime()).thenReturn(1f);
     }
 
@@ -97,5 +98,61 @@ public class FireTruckTest {
     public void willCollideShouldReturnFalseIfNotInRangeTest() {
         Entity e = new Entity(new Vector2(100, 300), 1, 1, null);
         assertFalse(testFireTruck.willCollide(e, 3));
+    }
+
+    //ASSESSMENT 3
+    @Test
+    public void truckShouldChangeDirectionWhenKeyPressedTest() {
+        testFireTruck.setSelected(true);
+        lenient().when(Gdx.input.isKeyPressed(Input.Keys.D)).thenReturn(true);
+        assertEquals(testFireTruck.truckDirection(), 270f);
+    }
+
+    //ASSESSMENT 3
+    @Test
+    public void truckShouldTurnDiagonalWhenTwoKeysPressedTest() {
+        testFireTruck.setSelected(true);
+        lenient().when(Gdx.input.isKeyPressed(Input.Keys.W)).thenReturn(true);
+        lenient().when(Gdx.input.isKeyPressed(Input.Keys.A)).thenReturn(true);
+        assertEquals(testFireTruck.truckDirection(), 45f);
+    }
+
+    @Test
+    public void truckShouldReturnZeroIfNegativeHealthTest() {
+        testFireTruck.setCurrentHealth(-1);
+        assertEquals(testFireTruck.getCurrentHealth(),0);
+    }
+
+    //ASSESSMENT 3
+    @Test
+    public void truckShouldMoveWhenAbleToTest() {
+        lenient().when(Gdx.input.isKeyPressed(Input.Keys.W)).thenReturn(true);
+        testFireTruck.truckMovement(new ArrayList<Entity>());
+        assertEquals(testFireTruck.getPosition(), new Vector2(100,110));
+    }
+
+    //ASSESSMENT 3
+    @ParameterizedTest
+    @CsvSource(value = {"100, 1500, 51","100, 200, 47",
+            "30, 250, 29", "1900, 250, 32"})
+    public void truckShouldNotMoveWhenOffScreenTest(int x, int y, int key) {
+        Gdx.input = PowerMockito.mock(Input.class);
+        lenient().when(Gdx.input.isKeyPressed(key)).thenReturn(true);
+        testFireTruck.setPosition(x, y);
+        testFireTruck.truckMovement(new ArrayList<Entity>());
+        assertEquals(testFireTruck.getPosition(), new Vector2(x,y));
+    }
+
+    //ASSESSMENT 3
+    @ParameterizedTest
+    @CsvSource(value = {"51, 100, 110", "47, 100, 90", "29, 90, 100", "32, 110, 100"})
+    public void truckShouldNotMoveWhenTouchingObstacleTest(int key, int x, int y) {
+        Gdx.input = PowerMockito.mock(Input.class);
+        Gdx.graphics = PowerMockito.mock(Graphics.class);
+        lenient().when(Gdx.input.isKeyPressed(key)).thenReturn(true);
+        lenient().when(Gdx.graphics.getDeltaTime()).thenReturn(1f);
+        testFireTruck.truckMovement(new ArrayList<>(Arrays.asList(
+                new Entity(new Vector2(x,y), 10, 10, null))));
+        assertEquals(testFireTruck.getPosition(), new Vector2(100,100));
     }
 }

@@ -189,7 +189,6 @@ public class Firetruck extends Character {
      */
     public void truckMovement(ArrayList<Entity> obstacles) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-
             boolean obstacleCollision = false;
             if (this.getPosition().y >= 1043 - this.getHeight()) {
                 obstacleCollision = true;
