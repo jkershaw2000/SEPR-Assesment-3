@@ -242,6 +242,7 @@ public class LevelSelectState extends State{
         spriteBatch.begin();
         spriteBatch.draw(background, 0, 0, Kroy.WIDTH, Kroy.HEIGHT);
         spriteBatch.draw(back.getTexture(), back.getPosition().x, back.getPosition().y, back.getWidth(), back.getHeight());
+
         for (Button level : buttons) {
             spriteBatch.draw(level.getTexture(), level.getPosition().x, level.getPosition().y, level.getWidth(), level.getHeight());
         }
