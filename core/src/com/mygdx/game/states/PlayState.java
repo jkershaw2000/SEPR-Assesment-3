@@ -44,7 +44,8 @@ public class PlayState extends State {
     private Texture obstacleTexture;
     private Texture redTexture;
     private Texture fortressTexture;
-    private Texture waterTexture; //________________________________________________________
+    private Texture waterTexture;
+    private SpriteBatch spriteBatch;//________________________________________________________
 
     private boolean levelLost;
     private boolean levelWon;
@@ -87,7 +88,7 @@ public class PlayState extends State {
 
     private Sound waterShoot = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
 
-    private Boolean minigameWon = false;
+    public Boolean minigameWon;
 
     public PlayState(GameStateManager gsm, int levelNumber) {
         super(gsm);
@@ -102,11 +103,14 @@ public class PlayState extends State {
         fortressTexture = new Texture("grey.png");
         waterTexture = new Texture("lightblue.jpg");
 
+        spriteBatch = new SpriteBatch();
 
         //Dalai Java - explosion
         explosions = new ArrayList<Explosion>();
 
         background = new Texture("LevelProportions.png");
+
+        minigameWon = false;
 
         quitLevel = new Button(new Texture("PressedQuitLevel.png"),
                 new Texture("NotPressedQuitLevel.png"),350 / 2, 100 / 2,
@@ -839,21 +843,24 @@ public class PlayState extends State {
                 truck.canBeDamaged = false; // DJ - making fire engines invulnerable when in station
                 if (!truck.isRefilling()) {
                     truck.setRefilling(true);
-                    minigameWon = false;
                     //ASSESSMENT 3 - beings the minigame
 
                     gameStateManager.push(new MinigameState(gameStateManager, this, ui));
 
-                    truck.setCurrentWater(truck.getMaxWater());
 
-                    //Dalai Java - Repair fire engines at fire station
-                    truck.setCurrentHealth(truck.getMaxHealth());
                     System.out.println("Minigame won" + minigameWon);
-
                 }
+
+                System.out.println("badgeryboi:D"+minigameWon);
             } else {
                 truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
+            }
+            if(minigameWon) {
+                truck.setCurrentWater(truck.getMaxWater());
+
+                //Dalai Java - Repair fire engines at fire station
+                truck.setCurrentHealth(truck.getMaxHealth());
             }
         }
 
@@ -865,7 +872,7 @@ public class PlayState extends State {
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
             if (drop.getLength() > drop.getMaxLength()) {
-                drop.dispose();
+                //drop.dispose();
                 water.remove(drop);
             }
             for (Alien alien : new ArrayList<Alien>(aliens)) {
@@ -874,7 +881,7 @@ public class PlayState extends State {
                     water.remove(drop);
                     if (alien.getCurrentHealth() == 0) {
                         fortress.getAlienPositions().add(alien.getPosition());
-                        alien.dispose();
+                        //alien.dispose();
                         aliens.remove(alien);
 
                         // Dalai Java - Alien explosion
@@ -1071,6 +1078,8 @@ public class PlayState extends State {
         fortressTexture.dispose();
         redTexture.dispose();
         waterTexture.dispose();
+        spriteBatch.dispose();
+
 
         for(Projectile water : water){
             water.dispose();
@@ -1254,5 +1263,9 @@ public class PlayState extends State {
         return (new Alien(coordinate, width, height, texture, maxHealth,
                 range, target, speed, dps, waypoints, attackCooldown));
     }
-    public void setMinigameWon(Boolean won) {this.minigameWon = won;}
+    public void setMinigameWon(Boolean won) {
+        this.minigameWon = won;
+        System.out.println(won);
+        System.out.println("boiiiii");
+    }
 }

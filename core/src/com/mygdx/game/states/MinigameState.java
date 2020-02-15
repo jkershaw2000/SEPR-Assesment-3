@@ -80,6 +80,7 @@ public class MinigameState extends State {
         if (giveup.mouseInRegion() && giveup.isLocked() == false) {
             giveup.setActive(true);
             if (Gdx.input.isTouched()) {
+                playState.setMinigameWon(false);
                 gameStateManager.pop();
             }
         } else {
@@ -141,6 +142,7 @@ public class MinigameState extends State {
         }
         if (stopwatch.getTime() > 60 && finished == null) {
             finished = "lost";
+            playState.setMinigameWon(false);
             //Sleeps for one second
             Timer.schedule(new Timer.Task() {
                 @Override
