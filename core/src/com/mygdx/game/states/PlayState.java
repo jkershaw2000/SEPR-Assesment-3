@@ -755,6 +755,7 @@ public class PlayState extends State {
     @Override
     public void update(float deltaTime) {
 
+
         // Dalai Java - explosion
         ArrayList<Explosion> explosionsToRemove = new ArrayList<Explosion>();
         for (Explosion explosion: explosions){
@@ -886,12 +887,27 @@ public class PlayState extends State {
             if (drop.hitUnit(fortress)) {
                 fortress.takeDamage(drop.getDamage());
 
-                // Dalai Java - Fortress damage explosion
+                // Dalai Java - Fortress damage explosion 4 row * 4 col
                 explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y + 30));
+                explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y + 60));
+                explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y + 90));
+
                 explosions.add(new Explosion(fortress.getPosition().x + 60, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 60, fortress.getPosition().y + 30));
+                explosions.add(new Explosion(fortress.getPosition().x + 60, fortress.getPosition().y + 60));
+                explosions.add(new Explosion(fortress.getPosition().x + 60, fortress.getPosition().y + 90));
+
                 explosions.add(new Explosion(fortress.getPosition().x + 100, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 100, fortress.getPosition().y + 30));
+                explosions.add(new Explosion(fortress.getPosition().x + 100, fortress.getPosition().y + 60));
+                explosions.add(new Explosion(fortress.getPosition().x + 100, fortress.getPosition().y + 90));
+
                 explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y));
-                explosions.add(new Explosion(fortress.getPosition().x + 180, fortress.getPosition().y));
+                explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 30));
+                explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 60));
+                explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 90));
+
 
                 if (fortress.getCurrentHealth() == 0) {
                     levelWon = true;
