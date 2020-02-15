@@ -54,19 +54,25 @@ public class Fortress extends Unit {
             alienPositions.add(new Vector2(33 + 15 * 32, 212 + 19 * 32));
             alienPositions.add(new Vector2(33 + 10 * 32, 212 + 15 * 32));
             alienPositions.add(new Vector2(33 + 13 * 32, 212 + 21 * 32));
-            alienPositions.add(new Vector2(33 + 5 * 32, 212 + 17 * 32));
             alienPositions.add(new Vector2(33 + 11 * 32, 212 + 24 * 32));
             alienPositions.add(new Vector2(33 + 16 * 32, 212 + 24 * 32));
-            alienPositions.add(new Vector2(33 + 2 * 32, 212 + 19 * 32));
+
         }
 
         else if (level  == 5){
-            alienPositions.add(new Vector2(33 + 55 * 32, 212 + 12 * 32));
-            alienPositions.add(new Vector2(33 + 52 * 32, 212 + 5 * 32));
-            alienPositions.add(new Vector2(33 + 54 * 32, 212 + 6 * 32));
-            alienPositions.add(new Vector2(33 + 53 * 32, 212 + 5 * 32));
-            alienPositions.add(new Vector2(33 + 52 * 32, 212 + 9 * 32));
-            alienPositions.add(new Vector2(33 + 57 * 32, 212 + 6 * 32));
+            System.out.println("what the fuxk");
+            alienPositions.add(new Vector2(33 + 31 * 32, 212 + 3 * 32));
+            alienPositions.add(new Vector2(33 + 31 * 32, 212 + 13 * 32));
+            alienPositions.add(new Vector2(33 + 31 * 32, 212 + 21 * 32));
+
+        }
+
+        else if (level == 6){
+            System.out.println(level);
+            alienPositions.add(new Vector2(33 + 14 * 32, 212 + 19 * 32));
+            alienPositions.add(new Vector2(33 + 26 * 32, 212 + 19 * 32));
+            alienPositions.add(new Vector2(33 + 27 * 32, 212 + 19 * 32));
+            alienPositions.add(new Vector2(33 + 40 * 32, 212 + 19 * 32));
         }
 
 

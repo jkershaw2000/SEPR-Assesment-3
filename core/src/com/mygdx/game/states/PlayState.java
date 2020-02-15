@@ -298,7 +298,7 @@ public class PlayState extends State {
             firetruck2pos = new Vector2(33 + 28 * 32, 212 + 3 * 32);
             // Placeholders
             firetruck3pos = new Vector2(33 + 27 * 32, 212 + 4 * 32);
-            firetruck4pos = new Vector2(33 + 28 * 32, 212 + 4 * 32);
+            firetruck4pos = new Vector2(33 + 29 * 32, 212 + 3 * 32);
 
             timeLimit = 60;
 
@@ -316,7 +316,7 @@ public class PlayState extends State {
             {obstacles.add(new Entity(new Vector2(737, 244), 32, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(705, 276), 64, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(609, 500), 32, 32, obstacleTexture));
-            obstacles.add(new Entity(new Vector2(577, 532), 64, 32, obstacleTexture));
+            obstacles.add(new Entity(new Vector2(33 + 17 * 32, 212 + 10 * 32), 64, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(961, 532), 64, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(1281, 308), 32, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(1281, 340), 64, 32, obstacleTexture));
@@ -326,6 +326,7 @@ public class PlayState extends State {
             obstacles.add(new Entity(new Vector2(1665, 532), 64, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(673, 724), 64, 32, obstacleTexture));
             obstacles.add(new Entity(new Vector2(705, 756), 32, 32, obstacleTexture));
+            obstacles.add(new Entity(new Vector2(33 + 24*32, 212 + 32*21), 224, 96, obstacleTexture));
 
             // For loops to create diagonal wall obstacle
             for (int i = 0; i<= 192; i += 32){
@@ -594,11 +595,11 @@ public class PlayState extends State {
 
             }
             // Placeholder values for position
-            fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 320, 96,
+            fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 352, 96 + 32,
                     obstacleTexture, 1000);
             // Placeholder values for position
             fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96,
-                    fortressTexture, 20000, 6, 4);
+                    fortressTexture, 20000, 6, 6);
 
             timeLimit = 45;
             map = new Texture("level6background.png");
@@ -1188,24 +1189,24 @@ public class PlayState extends State {
             }
             if (this.level.equals("3")) {
                 aliens.add(createAlien(coordinate, 32, 32, alienTexture, 30 + rand.nextInt(60),
-                        300, null, 7, 3 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                        300, null, 3, 3 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                                 new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 1f));
             }
             if (level.equals("4")) {
                 aliens.add(createAlien(coordinate, 32, 32, alienTexture, 30 + rand.nextInt(60),
                         250, null, 1, 13 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.75f));
+                                new Vector2(coordinate.x - 96, coordinate.y), new Vector2(coordinate.x - 96, coordinate.y-96)}, 0.75f));
             }
             if (level.equals("5")) {
                 aliens.add(createAlien(coordinate, 32, 32, alienTexture, 30 + rand.nextInt(60),
-                        250, null, 5, 19 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.5f));
+                        250, null, 2, 19 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x - 300, coordinate.y ),}, 0.5f));
             }
             if (level.equals("6")) {
                 aliens.add(createAlien(coordinate, 32, 32, alienTexture, 30 + rand.nextInt(60),
-                        250, null, 3, 25 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
-                                new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 0.2f));
-            }
+                        250, null, 2, 25 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                                new Vector2(coordinate.x, coordinate.y- 320)}, 0.2f));
+            }// new Vector2(coordinate.x, coordinate.y- 320)
 
             fortress.getAlienPositions().remove(coordinate);
             //if (timeLimit-30 < stopwatch.getTime()){
@@ -1213,6 +1214,7 @@ public class PlayState extends State {
             // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
             //  }
             //}
+
         }
     }
 
