@@ -15,7 +15,7 @@ public class FireStation extends Unit{
     }
 
     public void damage(){
-        health--;
+        health-= 10000;
     }
 
     @Override
