@@ -113,7 +113,8 @@ public class Alien extends Character {
         }
         else {
             if (getTarget() == null || station.getCurrentHealth() < getTarget().getCurrentHealth()) {
-                System.out.println(station.getPosition());
+                System.out.println("Station Targeted, Current health: " + station.getCurrentHealth() );
+
                 setTarget(station);
             }
         }

@@ -60,7 +60,6 @@ public class Fortress extends Unit {
         }
 
         else if (level  == 5){
-            System.out.println("what the fuxk");
             alienPositions.add(new Vector2(33 + 31 * 32, 212 + 3 * 32));
             alienPositions.add(new Vector2(33 + 31 * 32, 212 + 13 * 32));
             alienPositions.add(new Vector2(33 + 31 * 32, 212 + 21 * 32));

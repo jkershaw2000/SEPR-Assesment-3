@@ -600,7 +600,8 @@ public class PlayState extends State {
             }
             // Placeholder values for position
             fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 352, 128,
-                    obstacleTexture, 1000);
+                    obstacleTexture, 10);
+            System.out.println("abcde " + fireStation.getTopRight() + " " + fireStation.getPosition());
             // Placeholder values for position
             fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96,
                     fortressTexture, 20000, 6, 6);
@@ -752,6 +753,7 @@ public class PlayState extends State {
         }
     }
 
+
     /**
      * Updates the game logic before the next render() is called
      * @param deltaTime the amount of time which has passed since the last render() call
@@ -762,7 +764,7 @@ public class PlayState extends State {
 
         // Dalai Java - explosion
         ArrayList<Explosion> explosionsToRemove = new ArrayList<Explosion>();
-        for (Explosion explosion: explosions){
+        for (Explosion explosion : explosions) {
             explosion.update(deltaTime);
             if (explosion.remove)
                 explosionsToRemove.add(explosion);
@@ -782,27 +784,12 @@ public class PlayState extends State {
             if (timeLimit - stopwatch.getTime() > timeLimit / 2) {
                 // Aliens will follow there patrol route
                 alien.update();
-                alien.truckInRange(firetrucks, (FireStation)fireStation);
-                if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
-                    if (alien.hasTarget()) {
-                        Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                                redTexture, (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage(), "Straight");
-                        bullets.add(bullet);
-                        alien.resetTimeSinceAttack();
-                    }
-                }
+                alienShoot(alien);
                 alien.updateTimeSinceAttack(deltaTime);
             } else {
                 alien.updateToFireStation(fireStationPositions.get(((Integer.parseInt(level)) - 1)));
-                alien.truckInRange(firetrucks, (FireStation)fireStation);
-                if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
-                    if (alien.hasTarget()) {
-                        Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
-                                redTexture, (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage(), "Straight");
-                        bullets.add(bullet);
-                        alien.resetTimeSinceAttack();
-                    }
-               }
+                alienShoot(alien);
+                alien.updateTimeSinceAttack(deltaTime);
             }
         }
 
@@ -860,12 +847,12 @@ public class PlayState extends State {
                     System.out.println("Minigame won" + minigameWon);
                 }
 
-                System.out.println("badgeryboi:D"+minigameWon);
+                // System.out.println("badgeryboi:D"+minigameWon);
             } else {
                 truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
             }
-            if(minigameWon) {
+            if (minigameWon) {
                 truck.setCurrentWater(truck.getMaxWater());
 
                 //Dalai Java - Repair fire engines at fire station
@@ -877,33 +864,23 @@ public class PlayState extends State {
         // Checks if drop collides with alien/fortress and then removes health from it if so. If alien dies, removes it
         // and adds its coordinates back to the fortresses potential spawn locations. If fortress reaches 0 then
         // game win screen is called and level progress saved.
-
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
             if (drop.getLength() > drop.getMaxLength()) {
-                //drop.dispose();
                 water.remove(drop);
             }
-            for (Alien alien : new ArrayList<Alien>(aliens)) {
-                if (drop.hitUnit(alien)) {
-                    alien.takeDamage(drop.getDamage());
-                    water.remove(drop);
-                    if (alien.getCurrentHealth() == 0) {
-                        fortress.getAlienPositions().add(alien.getPosition());
-                        //alien.dispose();
-                        aliens.remove(alien);
+            if (drop.hitUnit(fireStation)) {
+                fireStation.takeDamage(drop.getDamage());
+                water.remove(drop);
+                explosions.add(new Explosion(fireStation.getPosition().x + 20, fireStation.getPosition().y));
+                if (fireStation.getCurrentHealth() == 0) {
 
-                        // Dalai Java - Alien explosion
-                        explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
-
-                        timeSinceAlienKilled = fortress.getSpawnRate();
-                    }
+                    levelLost = true;
                 }
-            }
-            if (drop.hitUnit(fortress)) {
+            } else if (drop.hitUnit(fortress)) {
                 fortress.takeDamage(drop.getDamage());
+                water.remove(drop);
 
-                // Dalai Java - Fortress damage explosion 4 row * 4 col
                 explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y));
                 explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y + 30));
                 explosions.add(new Explosion(fortress.getPosition().x + 20, fortress.getPosition().y + 60));
@@ -924,27 +901,30 @@ public class PlayState extends State {
                 explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 60));
                 explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 90));
 
-
-                if (fortress.getCurrentHealth() == 0) {
+                if (fireStation.getCurrentHealth() == 0) {
                     levelWon = true;
                     timeTaken = stopwatch.getTime();
                     saveData.putBoolean(level, true);
                     saveData.flush();
                 }
-            }
+            } else {
+                for (Alien alien : aliens) {
+                    if (drop.hitUnit(alien)) {
+                        water.remove(drop);
+                        alien.takeDamage(drop.getDamage());
 
-            // Dalai Java - Assesment 3
-            if (drop.hitUnit(fireStation)){
-                fireStation.takeDamage(drop.getDamage());
-                // If fire Station is destroyed, the level was lost
-                if (fireStation.getCurrentHealth() == 0){
-                    levelLost = true;
+                        if (alien.getCurrentHealth() == 0) {
+                            fortress.getAlienPositions().add(alien.getPosition());
+                            aliens.remove(alien);
+                            explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
+                            timeSinceAlienKilled = fortress.getSpawnRate();
+
+                        }
+                    }
                 }
             }
-
         }
 
-        // Regenerates fortress health each second
         if(timeSinceLastFortressRegen <= 0) {
             fortress.addHealth(10);
             timeSinceLastFortressRegen = 1;
@@ -970,6 +950,18 @@ public class PlayState extends State {
         if ((14 < timeLimit - stopwatch.getTime()) && (timeLimit - stopwatch.getTime() < 16)){
             Kroy.INTRO.setPitch(Kroy.ID, 2f);
         }
+    }
+
+    private void alienShoot(Alien alien) {
+        alien.truckInRange(firetrucks, fireStation);
+        if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
+            if (alien.hasTarget()) {
+                Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
+                        redTexture, (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage(), "Straight");
+                bullets.add(bullet);
+                alien.resetTimeSinceAttack();
+            }
+       }
     }
 
     /**
@@ -1009,6 +1001,10 @@ public class PlayState extends State {
         healthBars.draw(spriteBatch, "HP: " + fortress.getCurrentHealth(), fortress.getPosition().x + 70,
                 fortress.getPosition().y + fortress.getHeight() + 20);
 
+        // Assesment 3 - Draws Health for Fortress
+        healthBars.draw(spriteBatch, "HP: " + fireStation.getCurrentHealth(), fireStation.getPosition().x + fireStation.getWidth()/2,
+                fireStation.getPosition().y + fireStation.getHeight() + 20);
+
         // Draws updated alien locations
         for (Alien alien : aliens) {
             spriteBatch.draw(alien.getTexture(), alien.getPosition().x, alien.getPosition().y, alien.getWidth(),
@@ -1035,7 +1031,7 @@ public class PlayState extends State {
 
         // Gives user 15 second warning as time limit approaches.
         if ((timeLimit - 15) < stopwatch.getTime() && stopwatch.getTime() < (timeLimit - 10)) {
-            ui.draw(spriteBatch, "The firestation is being attacked \n You have 15 seconds before it's destroyed!",
+            ui.draw(spriteBatch, "You have 15 seconds to destroy the alien fortress",
                     50, 1020);
         }
 

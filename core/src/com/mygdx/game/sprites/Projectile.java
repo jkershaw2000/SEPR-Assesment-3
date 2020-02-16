@@ -69,10 +69,12 @@ public class Projectile extends Entity
      * @return true if the bullet is in contact with the Unit object, otherwise false
      */
     public boolean hitUnit(Unit instance) {
+        System.out.println(instance);
         if (getTopRight().y < instance.getPosition().y || getPosition().y > instance.getTopRight().y ||
                 getTopRight().x < instance.getPosition().x || getPosition().x > instance.getTopRight().x) {
             return false;
         } else {
+            System.out.println("hit");
             return true;
         }
     }
