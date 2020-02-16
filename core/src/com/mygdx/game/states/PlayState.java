@@ -600,7 +600,7 @@ public class PlayState extends State {
             }
             // Placeholder values for position
             fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 352, 128,
-                    obstacleTexture, 10);
+                    obstacleTexture, 1000);
             System.out.println("abcde " + fireStation.getTopRight() + " " + fireStation.getPosition());
             // Placeholder values for position
             fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96,
