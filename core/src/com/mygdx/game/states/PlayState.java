@@ -877,6 +877,8 @@ public class PlayState extends State {
         // Checks if drop collides with alien/fortress and then removes health from it if so. If alien dies, removes it
         // and adds its coordinates back to the fortresses potential spawn locations. If fortress reaches 0 then
         // game win screen is called and level progress saved.
+        // Refactored for assessment 3 - generally follows structure of previous assessment
+        ArrayList<Alien> deleteAliens = new ArrayList<>();
         for (Projectile drop : new ArrayList<Projectile>(water)) {
             drop.update();
             if (drop.getLength() > drop.getMaxLength()) {
@@ -920,7 +922,8 @@ public class PlayState extends State {
 
                         if (alien.getCurrentHealth() == 0) {
                             fortress.getAlienPositions().add(alien.getPosition());
-                            aliens.remove(alien);
+                            deleteAliens.add(alien); // Aliens that need to be removed, can't do in immediately as still going through that list and will change the index to be looked at.
+                            //aliens.remove(alien);
                             explosions.add(new Explosion(alien.getPosition().x, alien.getPosition().y));
                             timeSinceAlienKilled = fortress.getSpawnRate();
 
@@ -929,7 +932,11 @@ public class PlayState extends State {
                 }
             }
         }
-
+        // Assessment 3
+        // Delete aliens after iterating through the list - prevents concurrentModification Exception
+        for (Alien toDelete : deleteAliens){
+            aliens.remove(toDelete);
+        }
         if(timeSinceLastFortressRegen <= 0) {
             fortress.addHealth(10);
             timeSinceLastFortressRegen = 1;
