@@ -835,8 +835,7 @@ public class PlayState extends State {
                 fireStation.takeDamage(bullet.getDamage());
                 bullets.remove(bullet);
                 explosions.add(new Explosion(fireStation.getPosition().x + 20, fireStation.getPosition().y));
-                if (fireStation.getCurrentHealth() == 0) {
-
+                if (fireStation.getCurrentHealth() == 0 && levelWon == false) {
                     levelLost = true;
                 }
             }
@@ -908,7 +907,7 @@ public class PlayState extends State {
                 explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 60));
                 explosions.add(new Explosion(fortress.getPosition().x + 140, fortress.getPosition().y + 90));
 
-                if (fortress.getCurrentHealth() <= 0) {
+                if (fortress.getCurrentHealth() <= 0 && levelLost == false) {
                     levelWon = true;
                     timeTaken = stopwatch.getTime();
                     saveData.putBoolean(level, true);
