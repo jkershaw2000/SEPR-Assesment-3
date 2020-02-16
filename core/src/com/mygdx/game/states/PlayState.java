@@ -219,9 +219,9 @@ public class PlayState extends State {
             firetruck1pos = new Vector2(33 + 2 * 32, 212 + 4 * 32);
             firetruck2pos = new Vector2(33 + 2 * 32, 212 + 5 * 32);
 
-            // PlaceHolders
+            // Assessment 3
             firetruck3pos = new Vector2(33 + 2 * 32, 212 + 6 * 32);
-            firetruck4pos = new Vector2(33 + 2 * 32, 212 + 6 * 32);
+            firetruck4pos = new Vector2(33 + 1 * 32, 212 + 4 * 32);
 
             timeLimit = 120;
             map = new Texture("level2background.png");
