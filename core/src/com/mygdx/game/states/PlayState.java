@@ -811,6 +811,7 @@ public class PlayState extends State {
 
         for (Projectile bullet : new ArrayList<Projectile>(bullets)) {
             bullet.update();
+
             for (Firetruck truck : new ArrayList<Firetruck>(firetrucks)) {
                 if (bullet.hitUnit(truck) && truck.canBeDamaged) {
                     truck.takeDamage(bullet.getDamage());
@@ -818,6 +819,7 @@ public class PlayState extends State {
                     if (truck.getCurrentHealth() <= 0) {
                         truck.setSelected(false);
                         firetrucks.remove(truck);
+                    }
 
                         // Dalai Java - Firetruck explosion
                         explosions.add(new Explosion(truck.getPosition().x, truck.getPosition().y));
@@ -829,8 +831,18 @@ public class PlayState extends State {
                         destroyedFiretrucks.add(truck);
                     }
                 }
+            if (bullet.hitUnit(fireStation)) {
+                fireStation.takeDamage(bullet.getDamage());
+                bullets.remove(bullet);
+                explosions.add(new Explosion(fireStation.getPosition().x + 20, fireStation.getPosition().y));
+                if (fireStation.getCurrentHealth() == 0) {
+
+                    levelLost = true;
+                }
             }
         }
+
+
 
         // Refills firetrucks tank if truck reaches the fire station.
         for (Firetruck truck : firetrucks) {
@@ -845,19 +857,20 @@ public class PlayState extends State {
 
 
                     System.out.println("Minigame won" + minigameWon);
+
+                }
+                if (minigameWon) {
+                    truck.setCurrentWater(truck.getMaxWater());
+
+                    //Dalai Java - Repair fire engines at fire station
+                    truck.setCurrentHealth(truck.getMaxHealth());
                 }
 
-                // System.out.println("badgeryboi:D"+minigameWon);
             } else {
                 truck.canBeDamaged = true; // DJ - making fire engines vulnerable when not in station
                 truck.setRefilling(false);
             }
-            if (minigameWon) {
-                truck.setCurrentWater(truck.getMaxWater());
 
-                //Dalai Java - Repair fire engines at fire station
-                truck.setCurrentHealth(truck.getMaxHealth());
-            }
         }
 
         // Updates all water drops each tick, if the drop reaches a certain distance then it is deleted. Otherwise,
@@ -869,15 +882,7 @@ public class PlayState extends State {
             if (drop.getLength() > drop.getMaxLength()) {
                 water.remove(drop);
             }
-            if (drop.hitUnit(fireStation)) {
-                fireStation.takeDamage(drop.getDamage());
-                water.remove(drop);
-                explosions.add(new Explosion(fireStation.getPosition().x + 20, fireStation.getPosition().y));
-                if (fireStation.getCurrentHealth() == 0) {
-
-                    levelLost = true;
-                }
-            } else if (drop.hitUnit(fortress)) {
+            if (drop.hitUnit(fortress)) {
                 fortress.takeDamage(drop.getDamage());
                 water.remove(drop);
 
