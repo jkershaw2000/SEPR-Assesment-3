@@ -115,7 +115,7 @@ public class AlienTest {
     @Test
     public void alienShouldMoveTowardsFireStationAlongYAxis() {
         wayPointAlien.updateToFireStation(new Vector2(0,100));
-        assertEquals(wayPointAlien.getPosition(), new Vector2(0,5));
+        assertEquals(wayPointAlien.getPosition(), new Vector2(-5,0));
     }
 
 }
