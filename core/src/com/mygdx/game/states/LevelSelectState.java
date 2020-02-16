@@ -32,7 +32,40 @@ public class LevelSelectState extends State{
     private ArrayList<Button> buttons;
     private Preferences saveData;
     private Sound click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
-    private Sound honk = Gdx.audio.newSound((Gdx.files.internal("honk.wav")));
+    private Sound honk = Gdx.audio.newSound(Gdx.files.internal("honk.wav"));
+
+
+    //DJ - Added all textures here to fix the memory leak that NPStudios had (new textures were being created each
+    // update() call
+
+    private Texture PressedGreenTexture1 = new Texture("PressedGreen1.png");
+    private Texture PressedGreenTexture2 = new Texture("PressedGreen2.png");
+    private Texture PressedGreenTexture3 = new Texture("PressedGreen3.png");
+    private Texture PressedGreenTexture4 = new Texture("PressedGreen4.png");
+    private Texture PressedGreenTexture5 = new Texture("PressedGreen5.png");
+
+
+    private Texture NotPressedGreenTexture1 = new Texture("NotPressedGreen1.png");
+    private Texture NotPressedGreenTexture2 = new Texture("NotPressedGreen2.png");
+    private Texture NotPressedGreenTexture3 = new Texture("NotPressedGreen3.png");
+    private Texture NotPressedGreenTexture4 = new Texture("NotPressedGreen4.png");
+    private Texture NotPressedGreenTexture5 = new Texture("NotPressedGreen5.png");
+
+
+
+    private Texture PressedBlueTexture2 = new Texture("PressedBlue2.png");
+    private Texture PressedBlueTexture3 = new Texture("PressedBlue3.png");
+    private Texture PressedBlueTexture4 = new Texture("PressedBlue4.png");
+    private Texture PressedBlueTexture5 = new Texture("PressedBlue5.png");
+    private Texture PressedBlueTexture6 = new Texture("PressedBlue6.png");
+
+    private Texture NotPressedBlueTexture2 = new Texture("NotPressedBlue2.png");
+    private Texture NotPressedBlueTexture3 = new Texture("NotPressedBlue3.png");
+    private Texture NotPressedBlueTexture4 = new Texture("NotPressedBlue4.png");
+    private Texture NotPressedBlueTexture5 = new Texture("NotPressedBlue5.png");
+    private Texture NotPressedBlueTexture6 = new Texture("NotPressedBlue6.png");
+
+
 
     protected LevelSelectState(GameStateManager gameStateManager) {
         super(gameStateManager);
@@ -182,53 +215,53 @@ public class LevelSelectState extends State{
         handleInput();
 
         if(saveData.getBoolean("1") == true) {
-            level1.setOnTexture(new Texture("PressedGreen1.png"));
-            level1.setOffTexture(new Texture("NotPressedGreen1.png"));
+            level1.setOnTexture(PressedGreenTexture1);
+            level1.setOffTexture(NotPressedGreenTexture1);
             level2.setLocked(false);
 
-            level2.setOnTexture(new Texture("PressedBlue2.png"));
-            level2.setOffTexture(new Texture("NotPressedBlue2.png"));
+            level2.setOnTexture(PressedBlueTexture2);
+            level2.setOffTexture(NotPressedBlueTexture2);
         }
 
         if(saveData.getBoolean("2") == true) {
-            level2.setOnTexture(new Texture("PressedGreen2.png"));
-            level2.setOffTexture(new Texture("NotPressedGreen2.png"));
+            level2.setOnTexture(PressedGreenTexture2);
+            level2.setOffTexture(NotPressedGreenTexture2);
             level3.setLocked(false);
 
-            level3.setOnTexture(new Texture("PressedBlue3.png"));
-            level3.setOffTexture(new Texture("NotPressedBlue3.png"));
+            level3.setOnTexture(PressedBlueTexture3);
+            level3.setOffTexture(NotPressedBlueTexture3);
         }
 
         if(saveData.getBoolean("3") == true) {
-            level3.setOnTexture(new Texture("PressedGreen3.png"));
-            level3.setOffTexture(new Texture("NotPressedGreen3.png"));
+            level3.setOnTexture(PressedGreenTexture3);
+            level3.setOffTexture(NotPressedGreenTexture3);
             level4.setLocked(false);
 
-            level4.setOnTexture(new Texture("PressedBlue4.png"));
-            level4.setOffTexture(new Texture("NotPressedBlue4.png"));
+            level4.setOnTexture(PressedBlueTexture4);
+            level4.setOffTexture(NotPressedBlueTexture4);
         }
 
         if(saveData.getBoolean("4") == true) {
-            level4.setOnTexture(new Texture("PressedGreen4.png"));
-            level4.setOffTexture(new Texture("NotPressedGreen4.png"));
+            level4.setOnTexture(PressedGreenTexture4);
+            level4.setOffTexture(NotPressedGreenTexture4);
             level5.setLocked(false);
 
-            level5.setOnTexture(new Texture("PressedBlue5.png"));
-            level5.setOffTexture(new Texture("NotPressedBlue5.png"));
+            level5.setOnTexture(PressedBlueTexture5);
+            level5.setOffTexture(NotPressedBlueTexture5);
         }
 
         if(saveData.getBoolean("5") == true) {
-            level5.setOnTexture(new Texture("PressedGreen5.png"));
-            level5.setOffTexture(new Texture("NotPressedGreen5.png"));
+            level5.setOnTexture(PressedGreenTexture5);
+            level5.setOffTexture(NotPressedGreenTexture5);
             level6.setLocked(false);
 
-            level6.setOnTexture(new Texture("PressedBlue6.png"));
-            level6.setOffTexture(new Texture("NotPressedBlue6.png"));
+            level6.setOnTexture(PressedBlueTexture6);
+            level6.setOffTexture(NotPressedBlueTexture6);
         }
 
         if(saveData.getBoolean("6") == true) {
-            level6.setOnTexture(new Texture("PressedGreen5.png"));
-            level6.setOffTexture(new Texture("NotPressedGreen5.png"));
+            level6.setOnTexture(PressedGreenTexture5);
+            level6.setOffTexture(NotPressedGreenTexture5);
         }
     }
 
@@ -262,5 +295,30 @@ public class LevelSelectState extends State{
 
         click.dispose();
         honk.dispose();
+
+        //DJ - disposing of all textures once screen closed to fix memory leak
+        PressedGreenTexture1.dispose();
+        PressedGreenTexture2.dispose();
+        PressedGreenTexture3.dispose();
+        PressedGreenTexture4.dispose();
+        PressedGreenTexture5.dispose();
+
+        NotPressedGreenTexture1.dispose();
+        NotPressedGreenTexture2.dispose();
+        NotPressedGreenTexture3.dispose();
+        NotPressedGreenTexture4.dispose();
+        NotPressedGreenTexture5.dispose();
+
+        PressedBlueTexture2.dispose();
+        PressedBlueTexture3.dispose();
+        PressedBlueTexture4.dispose();
+        PressedBlueTexture5.dispose();
+        PressedBlueTexture6.dispose();
+
+        NotPressedBlueTexture2.dispose();
+        NotPressedBlueTexture3.dispose();
+        NotPressedBlueTexture4.dispose();
+        NotPressedBlueTexture5.dispose();
+        NotPressedBlueTexture6.dispose();
     }
 }
