@@ -61,7 +61,7 @@ public class PlayState extends State {
     private float timeLimit;
     private float timeTaken;
 
-    private Entity fireStation;
+    private FireStation fireStation;
     private Fortress fortress;
     private Firetruck firetruck1;
     private Firetruck firetruck2;
@@ -599,7 +599,7 @@ public class PlayState extends State {
 
             }
             // Placeholder values for position
-            fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 352, 96 + 32,
+            fireStation = new FireStation(new Vector2(33 + 21 * 32, 212 + 0 * 32), 352, 128,
                     obstacleTexture, 1000);
             // Placeholder values for position
             fortress = new Fortress(new Vector2(33 + 21 * 32, 212 + 23 * 32), 384, 96,
@@ -780,7 +780,7 @@ public class PlayState extends State {
 
             // Assesment 3 - After half the game time, the alien will begin to move towards the fire station.
             if (timeLimit - stopwatch.getTime() > timeLimit / 2) {
-                // will begin to move towards the fire station
+                // Aliens will follow there patrol route
                 alien.update();
                 alien.truckInRange(firetrucks, (FireStation)fireStation);
                 if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
@@ -794,6 +794,15 @@ public class PlayState extends State {
                 alien.updateTimeSinceAttack(deltaTime);
             } else {
                 alien.updateToFireStation(fireStationPositions.get(((Integer.parseInt(level)) - 1)));
+                alien.truckInRange(firetrucks, (FireStation)fireStation);
+                if (alien.getTimeSinceAttack() >= alien.getAttackCooldown()) {
+                    if (alien.hasTarget()) {
+                        Projectile bullet = new Projectile(new Vector2(alien.getPosition().x + alien.getWidth() / 2, alien.getPosition().y + alien.getHeight() / 2), 5, 5,
+                                redTexture, (new Vector2(alien.getTarget().getPosition().x, alien.getTarget().getPosition().y)), 5, alien.getDamage(), "Straight");
+                        bullets.add(bullet);
+                        alien.resetTimeSinceAttack();
+                    }
+               }
             }
         }
 
@@ -923,6 +932,16 @@ public class PlayState extends State {
                     saveData.flush();
                 }
             }
+
+            // Dalai Java - Assesment 3
+            if (drop.hitUnit(fireStation)){
+                fireStation.takeDamage(drop.getDamage());
+                // If fire Station is destroyed, the level was lost
+                if (fireStation.getCurrentHealth() == 0){
+                    levelLost = true;
+                }
+            }
+
         }
 
         // Regenerates fortress health each second
@@ -1234,11 +1253,6 @@ public class PlayState extends State {
             }// new Vector2(coordinate.x, coordinate.y- 320)
 
             fortress.getAlienPositions().remove(coordinate);
-            //if (timeLimit-30 < stopwatch.getTime()){
-            // for(Alien alien: aliens){
-            // alien.moveAlongGrid(new Vector2(33 + 21 * 32, 212 + 0 * 32));
-            //  }
-            //}
 
         }
     }

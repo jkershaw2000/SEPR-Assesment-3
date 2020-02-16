@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 
+import static java.lang.Math.random;
+
 /**
  * The Button class is used to create button objects for use on the MenuScreen
  * which can be used to change the current game State
@@ -43,7 +45,7 @@ public class Alien extends Character {
      * @param position The position to move towards
      */
     public void updateToFireStation(Vector2 position){
-        Vector2 newPos = moveAlongGrid(position);
+        Vector2 newPos = moveAlongGrid(new Vector2(position.x -96, position.y + 96));
         setPosition(newPos.x, newPos.y);
     }
 
@@ -111,6 +113,7 @@ public class Alien extends Character {
         }
         else {
             if (getTarget() == null || station.getCurrentHealth() < getTarget().getCurrentHealth()) {
+                System.out.println(station.getPosition());
                 setTarget(station);
             }
         }
