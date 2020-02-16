@@ -224,7 +224,7 @@ public class MinigameState extends State {
             //Straight pipe across
             if (nextPos.x == currentPos.x + 1) {
                 return new Pipe(new Vector2(500 + 100 * currentPos.x, 400 + 100 *  currentPos.y), 100,
-                        100, new Texture ("straightPipe.png"),
+                        100, new Texture ("StraightPipe.png"),
                         rotations[(new Random()).nextInt(rotations.length)], new int[] {90, 270});
             }
             //Pipe bending forwards + upwards
