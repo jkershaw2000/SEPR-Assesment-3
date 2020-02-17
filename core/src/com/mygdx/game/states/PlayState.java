@@ -1240,7 +1240,7 @@ public class PlayState extends State {
             }
             if (this.level.equals("3")) {
                 aliens.add(createAlien(coordinate, 32, 32, alienTexture, 30 + rand.nextInt(60),
-                        300, null, 3, 3 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
+                        300, null, 2, 3 + rand.nextInt(15), new Vector2[]{new Vector2(coordinate.x, coordinate.y),
                                 new Vector2(coordinate.x, coordinate.y - 300), new Vector2(coordinate.x - 300, coordinate.y)}, 1f));
             }
             if (level.equals("4")) {
